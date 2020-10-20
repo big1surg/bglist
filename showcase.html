@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
 #game{
@@ -42,7 +44,10 @@ border-radius: 25px;
 </div>
 	
 <div class="row">
-  <div class="col"><img src="7wonders.jpg" width="150px" height="150px" onclick="toastr.info('Card Drafting, 3-6 Players');"/></div>
+  <div class="col">
+	  <a href="#" data-toggle="popover" title="7 Wonders" data-content="Card Drafting, 3-6 Players">7 Wonders</a>
+	  <img src="7wonders.jpg" width="150px" height="150px" onclick="toastr.info('Card Drafting, 3-6 Players');"/>
+</div>
   <div class="col"><img src="azul.jpg" width="150px" height="150px data-toggle="popover" title="Azul" data-content="Tile Drafting, 2-4 Players"/></div>
   <div class="col"><img src="azulstainedglassofsintra.jpg" width="150px" height="150px"/></div>
   <div class="col"><img src="bang.jpg" width="150px" height="150px"/></div>
@@ -126,12 +131,11 @@ border-radius: 25px;
 
 </body>
 </html>
+	  
+<script>
 
-<script/>
-
-
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();   
+});
 
 </script>
