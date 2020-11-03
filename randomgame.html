@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+#game{
+border-bottom: 1px solid black;
+border-radius: 25px;
+}
+	
+#shortImage{
+	padding-left:50px;
+	padding-right:50px;
+}
+
+
+.jumbotron{
+	background-image: url("background.jpg");
+	background-size: cover;
+}
+
+#randomGame, #gameList{
+	text-align:center;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Content will go here -->
+<div class="container-fluid">
+
+<div class="jumbotron">
+  <h1 class="display-4 text-white">Board Games</h1>
+  <p class="lead text-white">Latest updates.</p>
+  <a class="btn btn-light" href="index.html">Home</a>
+  <a class="btn btn-light" href="updates.html">Showcase</a>
+  <a class="btn btn-light" href="list.html">Sorted list</a>
+  <a class="btn btn-light" href="updates.html">Updates</a>
+  <a class="btn btn-light" href="updates.html">Random!</a>
+</div>
+	
+</div>
+<div class ="container">
+	
+<form>
+  <div class="form-group">
+    <label for="playerCountAtTable">Player Count</label>
+    <input type="text" name="players" class="form-control" id="playerCount" placeholder="5">
+    <small id="emailHelp" class="form-text text-muted">Enter the number of players who are going to play.</small>
+  </div>
+  <button type="button" onclick="myFunction()" class="btn btn-primary">Get Games</button>
+</form>
+
+<!---random game--->
+<div>
+<h3>Your game is:</h3>
+<h3 id="randomGame"></h3>
+
+</div>
+
+<br/><br/>
+
+<!---all other options--->
+<div>
+<b>All available games:</b>
+<p id="gameList"> </p>
+
+</div>	
+	
+	
+</div> <!---container-->
+
+
+
+
+<script>
+
+//game, min players, max players
+var allGames =["7 Wonders",3,6,
+	"Azul",3,4,
+	"Azul: Stained Glass of Sintra", 2,4,
+	"Bang", 4,7,
+	"Betrayal of House on the Hill",3,6,
+	"Betrayal Legacy",3,5,
+	"Civ: New Dawn",2,4,
+	"Clank! Acquisitions Incorporated",2,6,
+	"Coup",2,6,
+	"Disney Villainous",2,6,
+	"Dune",2,6,
+	"Ethnos",2,6,
+	"Exploding Kittens",2,5,
+	"Fireball Island",2,4,
+	"Flip and Finds Diner",1,4,
+	"Fog of Love",2,2,
+	"Food Chain Magnate",2,5,
+	"Forgotten Waters",3,7,
+	"Gloomhaven",1,4,
+	"Hanabi",2,5,
+	"Hit Z Road",1,4,
+	"The Isle of Cats",1,6,
+	"Jaws",1,4,
+	"Kingdomino",2,4,
+	"King of Tokyo",2,6,
+	"Looney Quest",2,5,
+	"Mysterium",2,7,
+	"Mystic Vale",2,4,
+	"One Night Ultimate Werewold",3,10,
+	"Photosynhesis",2,4,
+	"The Quest for El Dorado",2,4,
+	"The Resistance",5,10,
+	"Risk",2,6,
+	"Scythe",1,5,
+	"Sorry!",2,4,
+	"Sushi Go!",2,5,
+	"Telestrations",4,8,
+	"Teotihuacan",1,4,
+	"Terraforming Mars",1,5,
+	"Ticket to Ride Europe",2,5,
+	"Watson and Holmes",2,7,
+	"Werewords",4,10,
+	"Wingspan",1,5
+	];
+	
+//var randomGameDiv = document.getElementById("randomGame");
+var gamesList = document.getElementById("gameList");
+var randomGameDiv = document.getElementById("randomGame");
+
+function myFunction(){
+	clearItems();
+	
+	var playerCount = parseInt(document.getElementById("playerCount").value);
+
+	var gamesYouCanPlay = [];
+
+	for(var k = 0; k<=allGames.length-1; k+=3){
+		if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
+			gamesYouCanPlay.push(allGames[k]);
+		}
+	}
+	
+	//random game, append to randomDiv
+	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length-1))+1;
+	if(gamesYouCanPlay.length>0){
+		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
+		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
+			gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
+			gamesList.appendChild(document.createElement("br"));
+		}
+	}else{
+		randomGameDiv.appendChild(document.createTextNode("Can't choose if there aren't any games!"));
+		gamesList.appendChild(document.createTextNode("Sorry, nothing available at this player count!"));
+	}
+	
+	//print list of all games
+	/*for(var i=0; i<=gamesYouCanPlay.length-1;i++){
+		gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
+		gamesList.appendChild(document.createElement("br"));
+	}*/
+}
+
+function clearItems(){
+	while(gamesList.firstChild){gamesList.removeChild(gamesList.firstChild);}
+	while(randomGameDiv.firstChild){randomGameDiv.removeChild(randomGameDiv.firstChild);}
+}
+	
+
+
+
+</script>
+</body>
+</html>
