@@ -143,7 +143,7 @@ function myFunction(){
 	}
 	
 	//random game, append to randomDiv
-	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length-1))+1;
+	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length-1));
 	if(gamesYouCanPlay.length>0){
 		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
 		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
@@ -154,12 +154,6 @@ function myFunction(){
 		randomGameDiv.appendChild(document.createTextNode("Can't choose if there aren't any games!"));
 		gamesList.appendChild(document.createTextNode("Sorry, nothing available at this player count!"));
 	}
-	
-	//print list of all games
-	/*for(var i=0; i<=gamesYouCanPlay.length-1;i++){
-		gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
-		gamesList.appendChild(document.createElement("br"));
-	}*/
 }
 
 function clearItems(){
