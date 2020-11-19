@@ -22,7 +22,7 @@ border-radius: 25px;
 	background-size: cover;
 }
 
-#randomGame, #gameList{
+#randomGame, #gameList, #totalGames{
 	text-align:center;
 }
 
@@ -55,6 +55,7 @@ border-radius: 25px;
   <button type="button" onclick="myFunction()" class="btn btn-primary">Get Games</button>
 </form>
 
+	
 <!---random game--->
 <div>
 <h3>Your game is:</h3>
@@ -62,6 +63,15 @@ border-radius: 25px;
 
 </div>
 
+<br/><br/>
+	
+<!---total games--->
+<div>
+<h4>Games at this player count:</h4>
+<h4 id="totalGames"></h4>
+
+</div>
+	
 <br/><br/>
 
 <!---all other options--->
@@ -134,6 +144,7 @@ var allGames =["7 Wonders",3,6,
 //var randomGameDiv = document.getElementById("randomGame");
 var gamesList = document.getElementById("gameList");
 var randomGameDiv = document.getElementById("randomGame");
+var numOfGames = document.getElementById("totalGames");
 
 function myFunction(){
 	clearItems();
@@ -152,8 +163,7 @@ function myFunction(){
 	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
 	if(gamesYouCanPlay.length>0){
 		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
-		gameList.appendChild(document.createTextNode("Number of games available to you:" + gamesYouCanPlay.length));
-		gamesList.appendChild(document.createElement("br"));
+		numOfGames.appendChild(document.createTextNode("Number of games available to you:" + gamesYouCanPlay.length));
 		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
 			gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
 			gamesList.appendChild(document.createElement("br"));
