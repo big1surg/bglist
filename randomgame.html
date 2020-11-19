@@ -67,7 +67,7 @@ border-radius: 25px;
 	
 <!---total games--->
 <div>
-<h4>Games at this player count:</h4>
+<b>Games at this player count:</b>
 <h4 id="totalGames"></h4>
 
 </div>
@@ -125,7 +125,7 @@ var allGames =["7 Wonders",3,6,
 	"Mysterium",2,7,
 	"Mystic Vale",2,4,
 	"One Night Ultimate Werewold",3,10,
-	"Photosynhesis",2,4,
+	"Photosynthesis",2,4,
 	"The Quest for El Dorado",2,4,
 	"The Resistance",5,10,
 	"Risk",2,6,
@@ -163,7 +163,7 @@ function myFunction(){
 	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
 	if(gamesYouCanPlay.length>0){
 		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
-		numOfGames.appendChild(document.createTextNode("Number of games available to you:" + gamesYouCanPlay.length));
+		numOfGames.appendChild(document.createTextNode(gamesYouCanPlay.length));
 		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
 			gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
 			gamesList.appendChild(document.createElement("br"));
