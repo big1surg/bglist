@@ -152,6 +152,8 @@ function myFunction(){
 	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
 	if(gamesYouCanPlay.length>0){
 		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
+		gameList.appendChild(document.createTextNode("Number of games available to you:" + gamesYouCanPlay.length));
+		gamesList.appendChild(document.createElement("br"));
 		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
 			gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
 			gamesList.appendChild(document.createElement("br"));
