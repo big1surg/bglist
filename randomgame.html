@@ -75,7 +75,7 @@ border-radius: 25px;
 	
 <br/><br/>
 <!---all other options--->
-<div>
+<div id="gamesThatNeedToBePlayed">
 <b>Games with <5 Plays:</b>
 <p id="needToPlaygameList"> </p>
 
@@ -224,7 +224,8 @@ function myFunction(){
 		if(gamesYouShouldPlay.length>0){
 			var gameChosenNumber = Math.floor(Math.random()*(gamesYouShouldPlay.length));
 			randomGameDiv.appendChild(document.createTextNode(gamesYouSholdPlay[gameChosenNumber]));
-			numOfGames.appendChild(document.createTextNode(gamesYouShouldPlay.length));
+			var totalGamesToPlay = gamesYouShouldPlay.length + gamesYouCanPlay.length;
+			numOfGames.appendChild(document.createTextNode(totalGamesToPlay));
 			for(var i=0; i<=gamesYouShouldPlay.length-1;i++){
 				needToPlaygamesList.appendChild(document.createTextNode(gamesYouShouldPlay[i]));
 				needToPlaygamesList.appendChild(document.createElement("br"));
@@ -235,6 +236,14 @@ function myFunction(){
 			}
 		//pick a random gaes from all games
 		}else{
+			//hide the need to play games section so it doesnt take up space
+			  var x = document.getElementById("gamesThatNeedToBePlayed");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			
 			var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
 			randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
 			numOfGames.appendChild(document.createTextNode(gamesYouCanPlay.length));
