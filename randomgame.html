@@ -210,7 +210,7 @@ function myFunction(){
 		if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
 			//gamesYouCanPlay.push(allGames[k]);
 			//check if it contains !--- at the start
-			if(allGames.include("!----")){
+			if(allGames.includes("!----")){
 				gamesYouShouldPlay.push(allGames[k]);
 			}else{
 				gamesYouCanPlay.push(allGames[k]);
