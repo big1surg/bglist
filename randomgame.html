@@ -74,7 +74,12 @@ border-radius: 25px;
 </div>
 	
 <br/><br/>
+<!---all other options--->
+<div>
+<b>Games with <5 Plays:</b>
+<p id="needToPlaygameList"> </p>
 
+</div>	
 <!---all other options--->
 <div>
 <b>All available games:</b>
@@ -113,7 +118,7 @@ var allGames =["7 Wonders",3,6,
 	"!----Concordia----!",2,5,
 	"!----Dead of Winter----!",3,5,
 	"!----Decrypto----!",3,8,
-	"!----Dixit----!",3,6,
+	"Dixit",3,6,
 	"!----Dinosaur Island----!",1,4,
 	"!----Dinosaur Tea Party----!",3,5,
 	"Dominion",2,4,
@@ -188,6 +193,7 @@ var allGames =["7 Wonders",3,6,
 	
 //var randomGameDiv = document.getElementById("randomGame");
 var gamesList = document.getElementById("gameList");
+var needToPlaygamesList = document.getElementById("needToPlaygameList");
 var randomGameDiv = document.getElementById("randomGame");
 var numOfGames = document.getElementById("totalGames");
 
@@ -197,22 +203,48 @@ function myFunction(){
 	var playerCount = parseInt(document.getElementById("playerCount").value);
 
 	var gamesYouCanPlay = [];
+	//this is to be used for games with <5 total plays
+	var gamesYouShouldPlay = [];
 
 	for(var k = 0; k<=allGames.length-1; k+=3){
 		if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
-			gamesYouCanPlay.push(allGames[k]);
+			//gamesYouCanPlay.push(allGames[k]);
+			//check if it contains !--- at the start
+			if(allGames.include("!----")){
+				gamesYouShouldPlay.push(allGames[k]);
+			}else{
+				gamesYouCanPlay.push(allGames[k]);
+			}
 		}
 	}
 	
 	//random game, append to randomDiv
-	var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
-	if(gamesYouCanPlay.length>0){
-		randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
-		numOfGames.appendChild(document.createTextNode(gamesYouCanPlay.length));
-		for(var i=0; i<=gamesYouCanPlay.length-1;i++){
-			gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
-			gamesList.appendChild(document.createElement("br"));
+	if(gamesYouCanPlay.length>0 || gamesYouShouldPlay.length>0){
+		//pick a random game from the games that have <5 plays
+		if(gamesYouShouldPlay.length>0){
+			var gameChosenNumber = Math.floor(Math.random()*(gamesYouShouldPlay.length));
+			randomGameDiv.appendChild(document.createTextNode(gamesYouSholdPlay[gameChosenNumber]));
+			numOfGames.appendChild(document.createTextNode(gamesYouShouldPlay.length));
+			for(var i=0; i<=gamesYouShouldPlay.length-1;i++){
+				needToPlaygamesList.appendChild(document.createTextNode(gamesYouShouldPlay[i]));
+				needToPlaygamesList.appendChild(document.createElement("br"));
+			}
+			for(var i=0; i<=gamesYouCanPlay.length-1;i++){
+				gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
+				gamesList.appendChild(document.createElement("br"));
+			}
+		//pick a random gaes from all games
+		}else{
+			var gameChosenNumber = Math.floor(Math.random()*(gamesYouCanPlay.length));
+			randomGameDiv.appendChild(document.createTextNode(gamesYouCanPlay[gameChosenNumber]));
+			numOfGames.appendChild(document.createTextNode(gamesYouCanPlay.length));
+			for(var i=0; i<=gamesYouCanPlay.length-1;i++){
+				gamesList.appendChild(document.createTextNode(gamesYouCanPlay[i]));
+				gamesList.appendChild(document.createElement("br"));
+			}
 		}
+			
+		
 	}else{
 		randomGameDiv.appendChild(document.createTextNode("Can't choose if there aren't any games!"));
 		gamesList.appendChild(document.createTextNode("Sorry, nothing available at this player count!"));
