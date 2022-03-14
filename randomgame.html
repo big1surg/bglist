@@ -223,7 +223,7 @@ function myFunction(){
 		//pick a random game from the games that have <5 plays
 		if(gamesYouShouldPlay.length>0){
 			var gameChosenNumber = Math.floor(Math.random()*(gamesYouShouldPlay.length));
-			randomGameDiv.appendChild(document.createTextNode(gamesYouSholdPlay[gameChosenNumber]));
+			randomGameDiv.appendChild(document.createTextNode(gamesYouShouldPlay[gameChosenNumber]));
 			var totalGamesToPlay = gamesYouShouldPlay.length + gamesYouCanPlay.length;
 			numOfGames.appendChild(document.createTextNode(totalGamesToPlay));
 			for(var i=0; i<=gamesYouShouldPlay.length-1;i++){
@@ -262,6 +262,7 @@ function myFunction(){
 
 function clearItems(){
 	while(gamesList.firstChild){gamesList.removeChild(gamesList.firstChild);}
+	while(needToPlaygamesList.firstChild){needToPlaygamesList.removeChild(needToPlaygamesList.firstChild);}
 	while(randomGameDiv.firstChild){randomGameDiv.removeChild(randomGameDiv.firstChild);}
 	while(numOfGames.firstChild){numOfGames.removeChild(numOfGames.firstChild);}
 }
