@@ -225,16 +225,23 @@ var gamesList = document.getElementById("gameList");
 var needToPlaygamesList = document.getElementById("needToPlaygameList");
 var randomGameDiv = document.getElementById("randomGame");
 var numOfGames = document.getElementById("totalGames");
+	
+
 
 function myFunction(){
 	clearItems();
 	
 	var playerCount = parseInt(document.getElementById("playerCount").value);
+	
+	//get complexity
+	var complexityRating = document.getElementById("complexity");
 
+	console.log(complexityRating);
 	var gamesYouCanPlay = [];
 	//this is to be used for games with <5 total plays
 	var gamesYouShouldPlay = [];
-
+	
+	
 	for(var k = 0; k<=allGames.length-1; k+=4){
 		if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
 			//gamesYouCanPlay.push(allGames[k]);
