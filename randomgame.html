@@ -235,8 +235,9 @@ function myFunction(){
 	
 	//get complexity
 	var complexityRating = document.getElementById("complexity");
-
-	console.log(complexityRating);
+	var valueRating = complexityRating.options[complexityRating.selectedIndex].value;
+	console.log(valueRating); 
+	
 	var gamesYouCanPlay = [];
 	//this is to be used for games with <5 total plays
 	var gamesYouShouldPlay = [];
