@@ -57,12 +57,12 @@ border-radius: 25px;
 	  <label for="complexity">Choose a Complexity:</label>
 
 	<select name="complexity" id="complexity">
-	  <option value="all">All</option>
-	  <option value="light">Light</option>
-	  <option value="mediumLight">Medium Light</option>
-	  <option value="medium">Medium</option>
-	  <option value="mediumHeavy">Medium Heavy</option>
-          <option value="heavy">Heavy</option>
+	  <option value="All">All</option>
+	  <option value="Light">Light</option>
+	  <option value="Medium Light">Medium Light</option>
+	  <option value="Medium">Medium</option>
+	  <option value="Medium Heavy">Medium Heavy</option>
+          <option value="Heavy">Heavy</option>
 	</select>
   </div>
   <button type="button" onclick="myFunction()" class="btn btn-primary">Get Games</button>
@@ -236,21 +236,35 @@ function myFunction(){
 	//get complexity
 	var complexityRating = document.getElementById("complexity");
 	var valueRating = complexityRating.options[complexityRating.selectedIndex].value;
-	console.log(valueRating); 
 	
 	var gamesYouCanPlay = [];
 	//this is to be used for games with <5 total plays
 	var gamesYouShouldPlay = [];
 	
-	
-	for(var k = 0; k<=allGames.length-1; k+=4){
-		if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
-			//gamesYouCanPlay.push(allGames[k]);
-			//check if it contains !--- at the start
-			if(allGames[k].includes("!----")){
-				gamesYouShouldPlay.push(allGames[k]);
-			}else{
-				gamesYouCanPlay.push(allGames[k]);
+	if(valueRating == "All"){
+		console.log("Showing all games at player count");
+		for(var k = 0; k<=allGames.length-1; k+=4){
+			if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
+				//gamesYouCanPlay.push(allGames[k]);
+				//check if it contains !--- at the start
+				if(allGames[k].includes("!----")){
+					gamesYouShouldPlay.push(allGames[k]);
+				}else{
+					gamesYouCanPlay.push(allGames[k]);
+				}
+			}
+		}
+	}else{
+		console.log("Showing all games at player count with "+valueRating+" complexity");
+		for(var k = 0; k<=allGames.length-1; k+=4){
+			if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+3]==valueRating){
+				//gamesYouCanPlay.push(allGames[k]);
+				//check if it contains !--- at the start
+				if(allGames[k].includes("!----")){
+					gamesYouShouldPlay.push(allGames[k]);
+				}else{
+					gamesYouCanPlay.push(allGames[k]);
+				}
 			}
 		}
 	}
