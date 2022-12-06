@@ -50,8 +50,8 @@ border-radius: 25px;
 <form>
   <div class="form-group">
     <label for="playerCountAtTable">Player Count</label>
-    <input type="text" name="players" class="form-control" id="playerCount" placeholder="Enter a number, ie 5">
-    <small id="emailHelp" class="form-text text-muted">Enter the number of players who are going to play.</small>
+    <input type="text" name="players" class="form-control" id="playerCount" placeholder="Enter the number of players who are going to play">
+    <small id="emailHelp" class="form-text text-muted">Enter ! after a number to get games with that player count as the max players.</small>
   </div>
   <div>
 	  <label for="complexity">Choose a Complexity:</label>
@@ -164,8 +164,8 @@ var allGames =["7 Wonders",3,6,"Medium Light",
 	"__Gloom__",2,4,"Light",
 	"Gloomhaven",1,4,"Medium Heavy",
 	"Gloomhaven: Jaws of the Lion",1,4,"Medium Heavy",
-        "__Great Western Trail__",1,4,"Medium Heavy",
-        "__The Great Zimbabwe__",2,5,"Medium Heavy",
+    "__Great Western Trail__",1,4,"Medium Heavy",
+    "__The Great Zimbabwe__",2,5,"Medium Heavy",
 	"Hadrians Wall",1,6,"Medium",
 	"Hanabi",2,5,"Medium Light",
 	"__Hansa Teutonica__",2,5,"Medium",
@@ -262,7 +262,16 @@ var numOfGames = document.getElementById("totalGames");
 function myFunction(){
 	clearItems();
 	
-	var playerCount = parseInt(document.getElementById("playerCount").value);
+	var maxPlayerChecked = false;
+	var checkPlayerCount = document.getElementById("playerCount").value;
+	if(checkPlayerCount.includes("!")){
+		var playerCount = parseInt(checkPlayerCount.replace('!',''));
+		console.log("Player Count = " +playerCount + " for Max Player Count");
+		maxPlayerChecked = true;
+	} else {
+		var playerCount = parseInt(document.getElementById("playerCount").value);
+		console.log("Player Count = " +playerCount);
+	}
 	
 	//get complexity
 	var complexityRating = document.getElementById("complexity");
@@ -274,27 +283,55 @@ function myFunction(){
 	
 	if(valueRating == "All"){
 		console.log("Showing all games at player count");
-		for(var k = 0; k<=allGames.length-1; k+=4){
-			if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
-				//gamesYouCanPlay.push(allGames[k]);
-				//check if it contains __ at the start
-				if(allGames[k].includes("__")){
-					gamesYouShouldPlay.push(allGames[k]);
-				}else{
-					gamesYouCanPlay.push(allGames[k]);
+		if(maxPlayerChecked == false){
+			for(var k = 0; k<=allGames.length-1; k+=4){
+				if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
+					//gamesYouCanPlay.push(allGames[k]);
+					//check if it contains __ at the start
+					if(allGames[k].includes("__")){
+						gamesYouShouldPlay.push(allGames[k]);
+					}else{
+						gamesYouCanPlay.push(allGames[k]);
+					}
+				}
+			}
+		}else {
+			for(var k = 0; k<=allGames.length-1; k+=4){
+				if(playerCount==allGames[k+2]){
+					//gamesYouCanPlay.push(allGames[k]);
+					//check if it contains __ at the start
+					if(allGames[k].includes("__")){
+						gamesYouShouldPlay.push(allGames[k]);
+					}else{
+						gamesYouCanPlay.push(allGames[k]);
+					}
 				}
 			}
 		}
 	}else{
 		console.log("Showing all games at player count with "+valueRating+" complexity");
-		for(var k = 0; k<=allGames.length-1; k+=4){
-			if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+3]==valueRating){
-				//gamesYouCanPlay.push(allGames[k]);
-				//check if it contains __ at the start
-				if(allGames[k].includes("__")){
-					gamesYouShouldPlay.push(allGames[k]);
-				}else{
-					gamesYouCanPlay.push(allGames[k]);
+		if(maxPlayerChecked==false){
+			for(var k = 0; k<=allGames.length-1; k+=4){
+				if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+3]==valueRating){
+					//gamesYouCanPlay.push(allGames[k]);
+					//check if it contains __ at the start
+					if(allGames[k].includes("__")){
+						gamesYouShouldPlay.push(allGames[k]);
+					}else{
+						gamesYouCanPlay.push(allGames[k]);
+					}
+				}
+			}
+		} else {
+			for(var k = 0; k<=allGames.length-1; k+=4){
+				if(playerCount==allGames[k+2] && allGames[k+3]==valueRating){
+					//gamesYouCanPlay.push(allGames[k]);
+					//check if it contains __ at the start
+					if(allGames[k].includes("__")){
+						gamesYouShouldPlay.push(allGames[k]);
+					}else{
+						gamesYouCanPlay.push(allGames[k]);
+					}
 				}
 			}
 		}
