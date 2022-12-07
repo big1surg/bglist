@@ -65,6 +65,62 @@ border-radius: 25px;
           <option value="Heavy">Heavy</option>
 	</select>
   </div>
+   <div>
+	  <label for="theme">Choose a Theme:</label>
+
+	<select name="theme" id="theme">
+	  <option value="All">All</option>
+	  <option value="Abstract">Abstract</option>
+	  <option value="Adventure">Adventure</option>
+	  <option value="Africa">Africa</option>
+	  <option value="Airplanes">Airplanes</option>
+	  <option value="Animals">Animals</option>
+	  <option value="Aztec">Aztec</option>
+	  <option value="Card Game">Card Game</option>
+	  <option value="Cars">Cars</option>
+	  <option value="Cats">Cats</option>
+	  <option value="City Building">City Building</option>
+	  <option value="Civilization">Civilization</option>
+	  <option value="Colonial">Colonial</option>
+	  <option value="Cowboys">Cowboys</option>
+	  <option value="Cows">Cows</option>
+	  <option value="Deduction">Deduction</option>
+	  <option value="Detective">Detective</option>
+	  <option value="Dinosaurs">Dinosaurs</option>
+	  <option value="Disease">Disease</option>
+	  <option value="Drawing">Drawing</option>
+	  <option value="Dungeon Crawling">Dungeon Crawling</option>
+	  <option value="Economic">Economic</option>
+	  <option value="Environmental">Environmental</option>
+	  <option value="Fantasy">Fantasy</option>
+	  <option value="Farming">Farming</option>
+	  <option value="Fishing">Fishing</option>
+	  <option value="Food">Food</option>
+	  <option value="Heist">Heist</option>
+	  <option value="Heroes">Heroes</option>
+	  <option value="Highway Building">Highway Building</option>
+	  <option value="Horror">Horror</option>
+	  <option value="Jungle">Jungle</option>
+	  <option value="Magic">Magic</option>
+	  <option value="Medieval">Medieval</option>
+	  <option value="Mediterranean">Mediterranean</option>
+	  <option value="Monsters">Monsters</option>
+	  <option value="Party">Party</option>
+	  <option value="Pirates">Pirates</option>
+	  <option value="Plants">Plants</option>
+	  <option value="Racing">Racing</option>
+	  <option value="Rats">Rats</option>
+	  <option value="Roll and Write">Roll and Write</option>
+	  <option value="Royalty">Royalty</option>
+	  <option value="Science Fiction">Science Fiction</option>
+	  <option value="Space">Space</option>
+	  <option value="Trains">Trains</option>
+	  <option value="Traitor">Traitor</option>
+	  <option value="War">War</option>
+	  <option value="Wasteland">Wasteland</option>
+	  <option value="Zombies">Zombies</option>
+	</select>
+  </div>
   <button type="button" onclick="myFunction()" class="btn btn-primary">Get Games</button>
 </form>
 
@@ -107,148 +163,148 @@ border-radius: 25px;
 
 <script>
 
-//game, min players, max players
-var allGames =["7 Wonders",3,6,"Medium Light",
-	"7 Wonders Duel",2,2,"Medium Light",
-	"__Abomination: The Heir of Frankenstein__",2,4,"Medium",
-	"__Agricola__",1,6,"Medium Heavy",
-	"__Anno 1800__",1,4,"Medium",
-	"A Feast for Odin",1,4,"Medium Heavy",
-	"__Ark Nova__",1,4,"Medium Heavy",
-	"Ascension",1,6,"Medium Light",
-	"__Ascension: Curse of the Golden Isles__",1,4,"Medium Light",
-	"Azul",3,4,"Medium Light",
-	"__Azul: Queens Garden__",2,4,"Medium",
-	"Azul: Stained Glass of Sintra", 2,4,"Medium Light",
-	"__Azul: Summer Pavilion__",2,4,"Medium Light",
-	"Bang", 4,7,"Light",
-	"__Betrayal of House on the Hill__",3,6,"Medium Light",
-	"__Beyond the Sun__",2,4,"Medium",
-	"Calico",1,4,"Medium Light",
-	"Camel Up",3,8,"Light",
-	"Cartographers",1,100,"Medium Light",
-	"__Castles of Mad King Ludwig__",1,4,"Medium",
-	"__Catan__",3,6,"Medium Light",
-	"__Cat Sodoku__",1,6,"Light",
-	"Century: Golem",2,5,"Medium Light",
-	"__Civ: New Dawn__",1,5,"Medium",
-	"Clank! Acquisitions Incorporated",2,6,"Medium",
-	"__Clank! Catacombs__",1,6,"Medium",
-	"__Coatl__",1,4,"Medium Light",
-	"Cubitos",2,4,"Medium Light",
-	"__CO2__",1,5,"Medium Heavy",
-	"__Codenames__",2,8,"Light",
-	"__Concordia__",2,5,"Medium",
-	"__Dead of Winter__",3,5,"Medium",
-	"__Decrypto__",3,8,"Medium Light",
-	"Dixit",3,6,"Light",
-	"__Dinosaur Island__",1,4,"Medium",
-	"__Dinosaur Tea Party__",3,5,"Light",
-	"__Dominant Species__",2,6,"Medium Heavy",
-	"Dominion",2,4,"Medium Light",
-	"Dune: Imperium",1,4,"Medium",
-	"__Eldritch Horror__",1,8,"Medium",
-	"__Eminent Domain__",2,4,"Medium Light",
-	"__Escape Plan__",1,5,"Medium Heavy",
-	"Ethnos",2,6,"Medium Light",
-	"__Evolution__",2,6,"Medium Light",
-	"Exploding Kittens",2,5,"Light",
-	"Fantasy Realms",2,6,"Medium Light",
-	"__Final Girl__",1,1,"Medium Light",
-	"__Fireball Island__",2,4,"Light",
-	"__First Rat__",1,5,"Medium Light",
-	"Fleet: The Dice Game",1,4,"Medium",
-	"Flip and Finds Diner",1,4,"Light",
-	"Food Chain Magnate",2,5,"Medium Heavy",
-	"__Gate__",1,1,"Medium Light",
-	"__Gloom__",2,4,"Light",
-	"Gloomhaven",1,4,"Medium Heavy",
-	"Gloomhaven: Jaws of the Lion",1,4,"Medium Heavy",
-    "__Great Western Trail__",1,4,"Medium Heavy",
-    "__The Great Zimbabwe__",2,5,"Medium Heavy",
-	"Hadrians Wall",1,6,"Medium",
-	"Hanabi",2,5,"Medium Light",
-	"__Hansa Teutonica__",2,5,"Medium",
-	"Hit Z Road",1,4,"Medium Light",
-	"__Inis__",2,5,"Medium",
-	"__Imperial Settlers__",1,4,"Medium",
-	"__Imperium: Classics__",1,4,"Medium Heavy",
-	"__Irish Gauge__",3,5,"Medium Light",
-	"The Isle of Cats",1,6,"Medium Light",
-	"__IoC: Explore and Draw__",1,6,"Medium Light",
-	"__Jaws__",1,4,"Medium Light",
-	"Just One",3,7,"Light",
-	"Keystone: North America",1,4,"Medium Light",
-	"__Kero__",2,2,"Medium Light",
-	"Kingdomino",2,5,"Light",
-	"__King of Tokyo__",2,6,"Light",
-	"__The King's Dilemma__",3,5,"Medium Light",
-	"__Libertalia__",1,6,"Medium Light",
-	"__Lost Ruins of Arnak__",1,4,"Medium",
-	"L.L.A.M.A. Card Game",2,6,"Light",
-	"__Lisboa__",1,4,"Heavy",
-	"__Long Shot: The Dice Game__",1,8,"Light",
-	"__Loony Quest__",2,4,"Light",
-	"Love Letter",2,6,"Light",
-	"__Maglev Metro__",1,4,"Medium",
-	"__The Magnificent__",1,4,"Medium",
-	"Marvel United:X-Men",1,5,"Medium Light",
-	"__Mercado de Lisboa__",1,4,"Medium Light",
-	"MicroMacro: Crime City - Full House",1,4,"Light",
-	"My City",2,4,"Medium Light",
-	"Mysterium",2,7,"Medium Light",
-	"Mystic Vale",2,6,"Medium Light",
-	"__Nemo's War__",1,1,"Medium",
-	"__One Night Ultimate Werewolf__",3,10,"Light",
-	"Onitama",2,2,"Medium Light",
-	"__Paladins of the West Kingdom__",1,4,"Medium Heavy",
-	"__Pan Am__",2,4,"Medium Light",
-	"__Pandemic__",2,4,"Medium Light",
-	"Patchwork",2,2,"Medium Light",
-	"__Pictures__",3,5,"Light",
-	"Photosynthesis",2,4,"Medium Light",
-	"__Power Grid__",2,6,"Medium",
-	"__Public Market__",1,4,"Medium",
-        "The Quacks Of Quedlinburg",2,5,"Medium Light",
-	"The Quest for El Dorado",2,4,"Medium Light",
-	"__Race for the Galaxy__",2,4,"Medium",
-	"__Raxxon__",1,4,"Medium Light",
-	"__Railroad Ink__",1,6,"Light",
-	"Red Rising",1,6,"Medium Light",
-	"__Risk__",2,6,"Medium Light",
-	"__Rococo: Deluxe__",1,5,"Medium",
-	"__Santorini: New York__",2,5,"Medium Light",
-	"Sagrada",1,4,"Medium Light",
-	"__Scattergories__",2,6,"Light",
-	"Sentinels of the Multiverse",1,5,"Medium",
-	"Shards of Infinity",1,4,"Medium Light",
-	"Space Base",2,5,"Medium Light",
-	"__Spirit Island__",1,4,"Medium Heavy",
-	"Splendor",2,4,"Medium Light",
-	"__Sprawlopolis__",1,4,"Medium Light",
-	"Sushi Go!",2,5,"Light",
-	"__Teotihuacan__",1,4,"Medium Heavy",
-	"Terraforming Mars",1,5,"Medium",
-	"__Terraforming Mars: Ares Expedition__",1,4,"Medium",
-	"__Terra Mystica__",2,5,"Medium Heavy",
-	"__Through the Ages: A Story of Civilization__",2,4,"Medium Heavy",
-	"__Thunderstone Quest__",1,6,"Medium",
-	"__Tokyo Clash__",2,4,"Medium Light",
-	"__Tokyo Highway__",2,4,"Light",
-	"__Treasure Island__",2,5,"Medium Light",
-	"__Trickerion__",1,4,"Medium Heavy",
-	"__Twilight Imperium__",3,6,"Medium Heavy",
-	"__Twilight Inscription__",1,8,"Medium",
-	"Under Falling Skies",1,1,"Medium Light",
-	"__Victorian Masterminds__",2,4,"Medium Light",
-	"__Viticulture__",1,6,"Medium",
-	"Warps Edge",1,1,"Medium Light",
-	"__Wavelength__",2,12,"Light",
-	"__Watson and Holmes__",2,7,"Medium Light",
-	"__Windward__",1,5,"Medium Light",
-	"Werewords",4,10,"Light",
-	"__Whistle Stop__",2,5,"Medium",
-	"Wingspan",1,5,"Medium Light"
+//game, min players, max players, theme
+var allGames =["7 Wonders",3,6,"Medium Light","Civilization",
+	"7 Wonders Duel",2,2,"Medium Light","Civilization",
+	"__Abomination: The Heir of Frankenstein__",2,4,"Medium","Horror",
+	"__Agricola__",1,6,"Medium Heavy","Farming",
+	"__Anno 1800__",1,4,"Medium","City Building",
+	"A Feast for Odin",1,4,"Medium Heavy","Farming",
+	"__Ark Nova__",1,4,"Medium Heavy","Economic",
+	"Ascension",1,6,"Medium Light","Card Game",
+	"__Ascension: Curse of the Golden Isles__",1,4,"Medium Light","Card Game",
+	"Azul",3,4,"Medium Light","Abstract",
+	"__Azul: Queens Garden__",2,4,"Medium","Abstract",
+	"Azul: Stained Glass of Sintra", 2,4,"Medium Light","Abstract",
+	"__Azul: Summer Pavilion__",2,4,"Medium Light","Abstract",
+	"Bang", 4,7,"Light","Deduction, Party",
+	"__Betrayal of House on the Hill__",3,6,"Medium Light","Horror",
+	"__Beyond the Sun__",2,4,"Medium","Science Fiction",
+	"Calico",1,4,"Medium Light","Abstract",
+	"Camel Up",3,8,"Light","Racing",
+	"Cartographers",1,100,"Medium Light","Fantasy",
+	"__Castles of Mad King Ludwig__",1,4,"Medium","City Building",
+	"__Catan__",3,6,"Medium Light","Civilization",
+	"__Cat Sodoku__",1,6,"Light","Cats, Party",
+	"Century: Golem",2,5,"Medium Light","Fantasy",
+	"__Civ: New Dawn__",1,5,"Medium","Civilization",
+	"Clank! Acquisitions Incorporated",2,6,"Medium","Fantasy, Dungeon Crawling",
+	"__Clank! Catacombs__",1,6,"Medium","Fantasy, Dungeon Crawling",
+	"__Coatl__",1,4,"Medium Light","Abstract",
+	"Cubitos",2,4,"Medium Light","Racing",
+	"__CO2__",1,5,"Medium Heavy","Environmental",
+	"__Codenames__",2,8,"Light","Deduction, Party",
+	"__Concordia__",2,5,"Medium","Mediterranean",
+	"__Dead of Winter__",3,5,"Medium","Zombies, Traitor",
+	"__Decrypto__",3,8,"Medium Light","Deduction, Party",
+	"Dixit",3,6,"Light","Deduction, Abstract",
+	"__Dinosaur Island__",1,4,"Medium","Dinosaurs, City Building",
+	"__Dinosaur Tea Party__",3,5,"Light","Dinosaurs, Deduction",
+	"__Dominant Species__",2,6,"Medium Heavy","Animals",
+	"Dominion",2,4,"Medium Light","Fantasy",
+	"Dune: Imperium",1,4,"Medium","Science Fiction",
+	"__Eldritch Horror__",1,8,"Medium","Horror",
+	"__Eminent Domain__",2,4,"Medium Light","Science Fiction",
+	"__Escape Plan__",1,5,"Medium Heavy","Racing, Heist",
+	"Ethnos",2,6,"Medium Light","Fantasy",
+	"__Evolution__",2,6,"Medium Light","Animals",
+	"Exploding Kittens",2,5,"Light","Cats",
+	"Fantasy Realms",2,6,"Medium Light","Fantasy",
+	"__Final Girl__",1,1,"Medium Light","Horror",
+	"__Fireball Island__",2,4,"Light","Adventure, Jungle",
+	"__First Rat__",1,5,"Medium Light","Space, Rats",
+	"Fleet: The Dice Game",1,4,"Medium","Fishing",
+	"Flip and Finds Diner",1,4,"Light","Food",
+	"Food Chain Magnate",2,5,"Medium Heavy","Food",
+	"__Gate__",1,1,"Medium Light","Horror",
+	"__Gloom__",2,4,"Light","Horror",
+	"Gloomhaven",1,4,"Medium Heavy","Fantasy, Dungeon Crawling",
+	"Gloomhaven: Jaws of the Lion",1,4,"Medium Heavy","Fantasy, Dungeon Crawling",
+    "__Great Western Trail__",1,4,"Medium Heavy","Cows, Animals, Cowboys",
+    "__The Great Zimbabwe__",2,5,"Medium Heavy","Africa, Cows",
+	"Hadrians Wall",1,6,"Medium","Civilization",
+	"Hanabi",2,5,"Medium Light","Deduction, Party",
+	"__Hansa Teutonica__",2,5,"Medium","Medieval",
+	"Hit Z Road",1,4,"Medium Light","Horror, Zombies, Wasteland",
+	"__Inis__",2,5,"Medium","Fantasy, War",
+	"__Imperial Settlers__",1,4,"Medium","Civilization, Medieval",
+	"__Imperium: Classics__",1,4,"Medium Heavy","Civilization",
+	"__Irish Gauge__",3,5,"Medium Light","Trains",
+	"The Isle of Cats",1,6,"Medium Light","Cats",
+	"__IoC: Explore and Draw__",1,6,"Medium Light","Cats",
+	"__Jaws__",1,4,"Medium Light","Animals, Horror",
+	"Just One",3,7,"Light","Party",
+	"Keystone: North America",1,4,"Medium Light","Animals, Environmental",
+	"__Kero__",2,2,"Medium Light","Wasteland",
+	"Kingdomino",2,5,"Light","Medieval",
+	"__King of Tokyo__",2,6,"Light","Monsters",
+	"__The King's Dilemma__",3,5,"Medium Light","Medieval, Fantasy",
+	"__Libertalia__",1,6,"Medium Light","Fantasy, Pirates",
+	"__Lost Ruins of Arnak__",1,4,"Medium","Adventure, Jungle",
+	"L.L.A.M.A. Card Game",2,6,"Light","Animals, Party",
+	"__Lisboa__",1,4,"Heavy","Colonial, Royalty",
+	"__Long Shot: The Dice Game__",1,8,"Light","Animals, Racing",
+	"__Loony Quest__",2,4,"Light","Drawing",
+	"Love Letter",2,6,"Light","Deduction, Party",
+	"__Maglev Metro__",1,4,"Medium","Trains",
+	"__The Magnificent__",1,4,"Medium","Magic",
+	"Marvel United:X-Men",1,5,"Medium Light","Heroes",
+	"__Mercado de Lisboa__",1,4,"Medium Light","Food",
+	"MicroMacro: Crime City - Full House",1,4,"Light","Detective",
+	"My City",2,4,"Medium Light","City Building",
+	"Mysterium",2,7,"Medium Light","Horror, Deduction",
+	"Mystic Vale",2,6,"Medium Light","Fantasy",
+	"__Nemo's War__",1,1,"Medium","Pirates",
+	"__One Night Ultimate Werewolf__",3,10,"Light","Deduction, Party",
+	"Onitama",2,2,"Medium Light","War",
+	"__Paladins of the West Kingdom__",1,4,"Medium Heavy","Medieval",
+	"__Pan Am__",2,4,"Medium Light","Airplanes",
+	"__Pandemic__",2,4,"Medium Light","Disease",
+	"Patchwork",2,2,"Medium Light","Abstract",
+	"__Pictures__",3,5,"Light","Abstract, Party, Deduction",
+	"Photosynthesis",2,4,"Medium Light","Environmental, Plants",
+	"__Power Grid__",2,6,"Medium","City Building",
+	"__Public Market__",1,4,"Medium","Fishing",
+    "The Quacks Of Quedlinburg",2,5,"Medium Light","Fantasy, Racing",
+	"The Quest for El Dorado",2,4,"Medium Light","Adventure, Racing, Jungle",
+	"__Race for the Galaxy__",2,4,"Medium","Space, Racing",
+	"__Raxxon__",1,4,"Medium Light","Horror",
+	"__Railroad Ink__",1,6,"Light","Trains",
+	"Red Rising",1,6,"Medium Light","Fantasy",
+	"__Risk__",2,6,"Medium Light","War",
+	"__Rococo: Deluxe__",1,5,"Medium","Colonial, Royalty",
+	"__Santorini: New York__",2,5,"Medium Light","City Building",
+	"Sagrada",1,4,"Medium Light","Abstract, Puzzle",
+	"__Scattergories__",2,6,"Light","Party",
+	"Sentinels of the Multiverse",1,5,"Medium","Heroes",
+	"Shards of Infinity",1,4,"Medium Light","Fantasy, Heroes",
+	"Space Base",2,5,"Medium Light","Space",
+	"__Spirit Island__",1,4,"Medium Heavy","Fantasy",
+	"Splendor",2,4,"Medium Light","Mediterranean",
+	"__Sprawlopolis__",1,4,"Medium Light","City Building",
+	"Sushi Go!",2,5,"Light","Food, Party",
+	"__Teotihuacan__",1,4,"Medium Heavy","Aztec",
+	"Terraforming Mars",1,5,"Medium","Science Fiction, City Building",
+	"__Terraforming Mars: Ares Expedition__",1,4,"Medium","Science Fiction",
+	"__Terra Mystica__",2,5,"Medium Heavy","Fantasy, City Building",
+	"__Through the Ages: A Story of Civilization__",2,4,"Medium Heavy","Civilization",
+	"__Thunderstone Quest__",1,6,"Medium","Fantasy, Dungeon Crawling",
+	"__Tokyo Clash__",2,4,"Medium Light","Monsters",
+	"__Tokyo Highway__",2,4,"Light","Cars, Highway Building",
+	"__Treasure Island__",2,5,"Medium Light","Pirates",
+	"__Trickerion__",1,4,"Medium Heavy","Magic",
+	"__Twilight Imperium__",3,6,"Medium Heavy","Fantasy",
+	"__Twilight Inscription__",1,8,"Medium","Fantasy",
+	"Under Falling Skies",1,1,"Medium Light","Fantasy",
+	"__Victorian Masterminds__",2,4,"Medium Light","Horror",
+	"__Viticulture__",1,6,"Medium","Food",
+	"Warps Edge",1,1,"Medium Light","Fantasy",
+	"__Wavelength__",2,12,"Light","Party, Deduction",
+	"__Watson and Holmes__",2,7,"Medium Light","Detective",
+	"__Windward__",1,5,"Medium Light","Fantasy, Animals",
+	"Werewords",4,10,"Light","Deduction, Fantasy, Monsters",
+	"__Whistle Stop__",2,5,"Medium","Trains",
+	"Wingspan",1,5,"Medium Light","Animals"
 	];
 	
 //var randomGameDiv = document.getElementById("randomGame");
@@ -277,14 +333,18 @@ function myFunction(){
 	var complexityRating = document.getElementById("complexity");
 	var valueRating = complexityRating.options[complexityRating.selectedIndex].value;
 	
+	//get theme
+	var themeChoice = document.getElementById("theme");
+	var themeValue = themeChoice.options[themeChoice.selectedIndex].value;
+	
 	var gamesYouCanPlay = [];
 	//this is to be used for games with <5 total plays
 	var gamesYouShouldPlay = [];
 	
-	if(valueRating == "All"){
+	if(valueRating == "All" && themeValue == "All"){
 		console.log("Showing all games at player count");
 		if(maxPlayerChecked == false){
-			for(var k = 0; k<=allGames.length-1; k+=4){
+			for(var k = 0; k<=allGames.length-1; k+=5){
 				if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
 					//gamesYouCanPlay.push(allGames[k]);
 					//check if it contains __ at the start
@@ -296,7 +356,7 @@ function myFunction(){
 				}
 			}
 		}else {
-			for(var k = 0; k<=allGames.length-1; k+=4){
+			for(var k = 0; k<=allGames.length-1; k+=5){
 				if(playerCount==allGames[k+2]){
 					//gamesYouCanPlay.push(allGames[k]);
 					//check if it contains __ at the start
@@ -309,30 +369,90 @@ function myFunction(){
 			}
 		}
 	}else{
-		console.log("Showing all games at player count with "+valueRating+" complexity");
-		if(maxPlayerChecked==false){
-			for(var k = 0; k<=allGames.length-1; k+=4){
-				if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+3]==valueRating){
-					//gamesYouCanPlay.push(allGames[k]);
-					//check if it contains __ at the start
-					if(allGames[k].includes("__")){
-						gamesYouShouldPlay.push(allGames[k]);
-					}else{
-						gamesYouCanPlay.push(allGames[k]);
+		//go here is the only thing the user changed was the complexity
+		if(themeValue=="All"){
+			console.log("Showing all games at player count with "+valueRating+" complexity");
+			if(maxPlayerChecked==false){
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+3]==valueRating){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
+					}
+				}
+			} else {
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount==allGames[k+2] && allGames[k+3]==valueRating){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
 					}
 				}
 			}
-		} else {
-			for(var k = 0; k<=allGames.length-1; k+=4){
-				if(playerCount==allGames[k+2] && allGames[k+3]==valueRating){
-					//gamesYouCanPlay.push(allGames[k]);
-					//check if it contains __ at the start
-					if(allGames[k].includes("__")){
-						gamesYouShouldPlay.push(allGames[k]);
-					}else{
-						gamesYouCanPlay.push(allGames[k]);
+		}else if (valueRating == "All"){
+			//go here is the only thing the user changed was the theme
+			console.log("the theme was changed");
+			if(maxPlayerChecked ==false){
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+4].includes(themeValue)){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
 					}
 				}
+			}else{
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount==allGames[k+2] && allGames[k+4].includes(themeValue)){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
+					}
+				}
+			}
+		}else{
+			// go here if the both were changed
+			console.log("both things were changed");
+			if(maxPlayerChecked==false){
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2] && allGames[k+4].includes(themeValue) && allGames[k+3]==valueRating){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
+					}
+				}
+			}else{
+				for(var k = 0; k<=allGames.length-1; k+=5){
+					if(playerCount==allGames[k+2] && allGames[k+4].includes(themeValue) && allGames[k+3]==valueRating){
+						//gamesYouCanPlay.push(allGames[k]);
+						//check if it contains __ at the start
+						if(allGames[k].includes("__")){
+							gamesYouShouldPlay.push(allGames[k]);
+						}else{
+							gamesYouCanPlay.push(allGames[k]);
+						}
+					}
+				}
+			
 			}
 		}
 	}
