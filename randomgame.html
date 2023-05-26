@@ -107,7 +107,7 @@ border-radius: 25px;
 	  <option value="Plants">Plants</option>
 	  <option value="Playground">Playground</option>
 	  <option value="Political">Political</option>
-          <option value="Prehistoric">Prehistoric</option>
+      <option value="Prehistoric">Prehistoric</option>
 	  <option value="Racing">Racing</option>
 	  <option value="Religion">Religion</option>
 	  <option value="Roll and Write">Roll and Write</option>
@@ -205,7 +205,7 @@ var allGames =["7 Wonders",3,6,"Medium Light","Civilization",
 	"__Dinosaur Island__",1,5,"Medium","Animals, City Building",
 	"__Dinosaur Tea Party__",3,5,"Light","Animals, Deduction",
 	"Dominion",2,4,"Medium Light","Fantasy",
-	"__Don't Get Got__",2,10,"Party",
+	"__Don't Get Got__",2,10,"Light","Party",
 	"__Don't L.L.A.M.A. Dice Game",2,6,"Light","Animals",
 	"Dune: Imperium",1,4,"Medium","Science Fiction",
 	"__Edge of Darkness__",1,4,"Medium","Fantasy",
@@ -350,12 +350,13 @@ function myFunction(){
 	var gamesYouShouldPlay = [];
 	
 	if(valueRating == "All" && themeValue == "All"){
-		console.log("Showing all games at player count");
+		console.log("Showing all games at player count with all rating and all themes");
 		if(maxPlayerChecked == false){
 			for(var k = 0; k<=allGames.length-1; k+=5){
 				if(playerCount>=allGames[k+1] && playerCount<=allGames[k+2]){
 					//gamesYouCanPlay.push(allGames[k]);
 					//check if it contains __ at the start
+					console.log(allGames[k]);
 					if(allGames[k].includes("__")){
 						gamesYouShouldPlay.push(allGames[k]);
 					}else{
