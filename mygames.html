@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+
+.col{
+ padding: 10px 10px 10px 10px;
+}
+
+.jumbotron{
+	background-image: url("background.jpg");
+	background-size: cover;
+}
+
+	
+/* The flip box container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-box {
+  background-color: transparent;
+  width: 150px;
+  height: 150px;
+  /*perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-box:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-box-front {
+  background-color: #bbb;
+  color: black;
+}
+
+/* Style the back side */
+.flip-box-back {
+  background-color: white;
+  color: black;
+ border: 1px solid black;
+  transform: rotateY(180deg);
+  opacity: 0.8;
+}	
+	
+
+
+	
+</style>
+</head>
+<body>
+
+<!-- Content will go here -->
+<div class="container-fluid">
+
+<div class="jumbotron">
+  <h1 class="display-4 text-white">Board Games</h1>
+  <p class="lead text-white">Showcasing your Collection.</p>
+  <a class="btn btn-light" href="index.html">Home</a>
+  <a class="btn btn-light" href="randomgame.html">Random</a>
+  <a class="btn btn-light" href="https://boardgamegeek.com/collection/user/biggy_serg">BGG</a>
+</div>
+</div>
+<div id="buttonGroup">
+<div class="form-group">
+<label>BGG Username</label>
+<input type="text" class="form-control" id="usernameInput">
+ </div>
+<button type="submit" class="btn btn-primary" onclick="letsDoThis()">Submit</button>
+</div>
+<div class="container" id='mainBox'>	
+</div> <!---container-->
+</body>
+</html>
+	  
+<script>
+//different array of games
+function letsDoThis(){
+	var userinput = document.getElementById("usernameInput").value;
+	var urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion"
+	document.getElementById("buttonGroup").style.visibility="hidden";
+	loadDoc(urlInput);		
+}
+
+function loadDoc(urlString) {
+	console.log("loadDoc");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xhttp.open("GET", urlString, true);
+  xhttp.send();
+}
+
+function myFunction(xml) {
+	var arrayGames= [];
+	var name;
+	var year;
+	var plays;
+	var image; 
+	var arrayOfThing = new Array();
+  var i;
+  var xmlDoc = xml.responseXML;
+  //var table="<tr><th>Artist</th><th>Title</th></tr>";
+  var x = xmlDoc.getElementsByTagName("item");
+
+  for(i=0; i<x.length; i++){
+	//console.log(xmlDoc.getElementsByTagName("name")[i].textContent);
+	name = x[i].getElementsByTagName("name")[0].textContent;
+	year = x[i].getElementsByTagName("yearpublished")[0].textContent;
+	plays = x[i].getElementsByTagName("numplays")[0].textContent;
+	image = x[i].getElementsByTagName("thumbnail")[0].textContent;
+	arrayOfThing = [name, year, plays, image];
+	//console.log(arrayOfThing);
+	arrayGames.push(arrayOfThing);
+  }
+  
+  //document.getElementById("demo").innerHTML = x.length;
+  //console.log("array:"+arrayOfGames[0]);
+  displayResults(arrayGames);
+}
+
+
+function displayResults(arrayOfGames){
+	var games = arrayOfGames.length;	
+	var gamesPerRow = 6;
+		var rowsOfGames = Math.ceil(games/gamesPerRow);
+	var count = 0;
+	
+	//console.log(arrayOfGamess.length);
+
+	for(y=0;y<rowsOfGames;y++){
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		if(games>gamesPerRow){
+			//console.log('x');
+			for(x=0;x<gamesPerRow;x++){
+			div.innerHTML += `
+			  <div class="col d-flex justify-content-center">
+				  <div class="flip-box">
+					 <div class="flip-box-inner">
+						 <div class="flip-box-front">
+							  <img src=${arrayOfGames[count][3]} style="width:150px;height:150px"/>
+						  </div><!--flip box front end-->
+						 <div class="flip-box-back">
+							  <h5>${arrayOfGames[count][0]}</h5>
+							 <p>${arrayOfGames[count][1]}<br/>
+							 Plays: ${arrayOfGames[count][2]}</p>
+						 </div><!--flip box back end-->
+					 </div><!--flip-box-inner end-->
+				</div><!--flip box end-->
+			</div><!--col end-->
+			`;
+			
+			count++;
+			}
+			
+			games = games-gamesPerRow;
+		}else{
+			gamesPerRow = games;
+			console.log(count);
+			for(x=0;x<gamesPerRow;x++){
+			div.innerHTML += `
+			  <div class="col d-flex justify-content-center">
+				  <div class="flip-box">
+					 <div class="flip-box-inner">
+						 <div class="flip-box-front">
+							  <img src=${arrayOfGames[count][3]} style="width:150px;height:150px"/>
+						  </div><!--flip box front end-->
+						 <div class="flip-box-back">
+							  <h5>${arrayOfGames[count][0]}</h5>
+							 <p>${arrayOfGames[count][1]}<br/>
+							 Plays: ${arrayOfGames[count][2]}</p>
+						 </div><!--flip box back end-->
+					 </div><!--flip-box-inner end-->
+				</div><!--flip box end-->
+			</div><!--col end-->
+			`;
+			count++;
+			}
+			
+		}
+		
+		
+
+		
+		document.getElementById('mainBox').appendChild(div);
+	}
+	
+}
+</script>
