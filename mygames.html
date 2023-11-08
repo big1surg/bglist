@@ -81,11 +81,15 @@
   <a class="btn btn-light" href="https://boardgamegeek.com/collection/user/biggy_serg">BGG</a>
 </div>
 </div>
-<div id="buttonGroup">
-<div class="form-group">
+<div id="buttonGroup" style="margin: 20px;">
+<div class="form-group" >
 <label>BGG Username</label>
-<input type="text" class="form-control" id="usernameInput">
+<input type="text" class="form-control" id="usernameInput" style="width:25%;">
  </div>
+<div class="form-check">
+    <input type="checkbox" class="form-check-input" id="Check1">
+    <label class="form-check-label" for="Check1">Only Games with 0 plays</label>
+  </div>
 <button type="submit" class="btn btn-primary" onclick="letsDoThis()">Submit</button>
 </div>
 <div class="container" id='mainBox'>	
@@ -95,15 +99,18 @@
 	  
 <script>
 //different array of games
+var showOnlyZeroPlays = false;
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
 	var urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion"
-	document.getElementById("buttonGroup").style.visibility="hidden";
+	//document.getElementById("buttonGroup").style.visibility="hidden";
+	showOnlyZeroPlays = document.getElementById("Check1").checked;
+	//console.log(showOnlyZeroPlays);
 	loadDoc(urlInput);		
 }
 
 function loadDoc(urlString) {
-	console.log("loadDoc");
+	//console.log("loadDoc");
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -127,14 +134,26 @@ function myFunction(xml) {
   var x = xmlDoc.getElementsByTagName("item");
 
   for(i=0; i<x.length; i++){
-	//console.log(xmlDoc.getElementsByTagName("name")[i].textContent);
 	name = x[i].getElementsByTagName("name")[0].textContent;
-	year = x[i].getElementsByTagName("yearpublished")[0].textContent;
+	try{
+		year = x[i].getElementsByTagName("yearpublished")[0].textContent;
+	}catch{
+		year = 'N/A';
+	}
 	plays = x[i].getElementsByTagName("numplays")[0].textContent;
 	image = x[i].getElementsByTagName("thumbnail")[0].textContent;
-	arrayOfThing = [name, year, plays, image];
+	
+	if(showOnlyZeroPlays == true){
+		if(plays === "0"){
+			arrayOfThing = [name, year, plays, image];
+			arrayGames.push(arrayOfThing);
+		}
+	}else{
+		arrayOfThing = [name, year, plays, image];
+		arrayGames.push(arrayOfThing);
+	}
 	//console.log(arrayOfThing);
-	arrayGames.push(arrayOfThing);
+	//arrayGames.push(arrayOfThing);
   }
   
   //document.getElementById("demo").innerHTML = x.length;
