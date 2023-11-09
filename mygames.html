@@ -109,6 +109,7 @@
             <option value="0">All Games</option>
             <option value="1">Unplayed Games</option>
             <option value="2">Preordered Games</option>
+			<option value="3">Games Played &lt; 5 Times</option>
         </select>
 	<br/>
 	<br/>
@@ -124,6 +125,7 @@
 var showAllGames = true;
 var showOnlyZeroPlays = false;
 var showOnlyPreorders = false;
+var showLT5Plays = false;
 
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
@@ -136,22 +138,32 @@ function letsDoThis(){
 		showAllGames = false;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = true;
+		showLT5Plays = false;
 	}else if (dropdownSelected === "2"){
 		showAllGames = false;
 		showOnlyPreorders = true;
 		showOnlyZeroPlays = false;
-	}else {
+		showLT5Plays = false;
+	}else if(dropdownSelected ==="0"){
 		showAllGames = true;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
+		showLT5Plays = false;
+	}else{
+		showAllGames = false;
+		showOnlyPreorders = false;
+		showOnlyZeroPlays = false;
+		showLT5Plays = true;
 	}
 	
 	if(showOnlyPreorders == true){
 		var urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&preordered=1"
-	}else{
+	}else if (showAllGames == true){
 		var urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion"
+	}else{
+		var urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&excludesubtype=boardgameexpansion&maxplays=4&own=1"
 	}
-	//console.log(dropdownSelected);
+	//console.log(urlinput);
 	document.getElementById("mainBox").innerHTML = "";
 	loadDoc(urlInput);		
 }
