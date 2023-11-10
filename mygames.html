@@ -198,6 +198,10 @@ function myFunction(xml) {
 
   for(i=0; i<x.length; i++){
 	name = x[i].getElementsByTagName("name")[0].textContent;
+	//console.log("name"+name+" "+name.length);
+	if(name.length>27){
+		name = name.substring(0,27)+"...";
+	}
 	try{
 		year = x[i].getElementsByTagName("yearpublished")[0].textContent;
 	}catch{
@@ -252,8 +256,8 @@ function displayResults(arrayOfGames){
 							  <img src=${arrayOfGames[count][3]} style="width:150px;height:150px"/>
 						  </div><!--flip box front end-->
 						 <div class="flip-box-back">
-							  <h5>${arrayOfGames[count][0]}</h5>
-							 <p>${arrayOfGames[count][1]}<br/>
+							<h6>${arrayOfGames[count][0]}</h6>
+							<p>${arrayOfGames[count][1]}<br/>
 							 Plays: ${arrayOfGames[count][2]}<br/>
 							 ${arrayOfGames[count][4]}-${arrayOfGames[count][5]} Player(s)<br/>
 							 Avg Time: ${arrayOfGames[count][6]} min</p>
@@ -279,8 +283,8 @@ function displayResults(arrayOfGames){
 							  <img src=${arrayOfGames[count][3]} style="width:150px;height:150px"/>
 						  </div><!--flip box front end-->
 						 <div class="flip-box-back">
-							  <h5>${arrayOfGames[count][0]}</h5>
-							 <p>${arrayOfGames[count][1]}<br/>
+						 <h6>${arrayOfGames[count][0]}</h6>
+						 <p>${arrayOfGames[count][1]}<br/>
 							 Plays: ${arrayOfGames[count][2]}<br/>
 							 ${arrayOfGames[count][4]}-${arrayOfGames[count][5]} Player(s)<br/>
 							 Avg Time: ${arrayOfGames[count][6]} min</p>
