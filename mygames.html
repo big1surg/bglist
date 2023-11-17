@@ -208,7 +208,7 @@ function myFunction(xml) {
 		year = 'N/A';
 	}
 	plays = x[i].getElementsByTagName("numplays")[0].textContent;
-	image = x[i].getElementsByTagName("thumbnail")[0].textContent;
+	image = x[i].getElementsByTagName("image")[0].textContent;
 	minPlayers = x[i].getElementsByTagName("stats")[0].getAttribute("minplayers");
 	maxPlayers = x[i].getElementsByTagName("stats")[0].getAttribute("maxplayers");
 	maxPlaytime = x[i].getElementsByTagName("stats")[0].getAttribute("maxplaytime");
