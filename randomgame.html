@@ -549,7 +549,14 @@ function clearItems(){
 	while(numOfGames.firstChild){numOfGames.removeChild(numOfGames.firstChild);}
 }
 	
-
+var urlString = document.URL;
+//console.log("string:" +	urlString);
+if(urlString.includes("pc")){
+	var pcURLValue = urlString.split("pc=")[1];
+	console.log(pcURLValue);
+	document.getElementById("playerCount").value = pcURLValue;
+	myFunction();
+}
 
 
 </script>
