@@ -305,4 +305,13 @@ function displayResults(arrayOfGames){
 	}
 	
 }
+	//check url 
+	var urlString = document.URL;
+	//console.log("string:" +	urlString);
+	if(urlString.includes("um")){
+		var umURLValue = urlString.split("um=")[1];
+		console.log(pcURLValue);
+		document.getElementById("usernameInput").value = umURLValue ;
+		letsDoThis();
+	}
 </script>
