@@ -82,6 +82,7 @@
   <a class="btn btn-light" href="mygames.html">x</a>
 </div>
 </div>
+<p id="gameCount"></p>
 <div class="container" id='mainBox'>	
 </div> <!---container-->
 </body>
@@ -266,7 +267,7 @@ var splotterGames = [
 	var uweGamesCount = uweGames.length;
 	var garphillGamesCount = garphillGames.length;
 	var splotterGamesCount = splotterGames.length;
-	
+	var allGameCount = games+uweGamesCount+garphillGamesCount+splotterGamesCount;
 	var gamesPerRow = 6;
 	
 	var rowsOfGames = Math.ceil(games/gamesPerRow);
@@ -274,6 +275,9 @@ var splotterGames = [
 	var garphillRow = Math.ceil(garphillGamesCount/gamesPerRow);
 	var splotterRow = Math.ceil(splotterGamesCount/gamesPerRow);
 	var count = 0;
+
+	//add number of games to screen
+	var pCount = document.getElementById('gameCount').innerHTML = allGameCount+" total games";
 	
 	//uwe games
 	var div = document.createElement('div');
