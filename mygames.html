@@ -110,6 +110,9 @@
             <option value="1">Unplayed Games</option>
             <option value="2">Preordered Games</option>
 			<option value="3">Games Played &lt; 5 Times</option>
+			<option value="4">Games &lt; 30 Min</option>
+			<option value="5">Games &lt; 60 Min</option>
+			<option value="6">Games &lt; 90 Min</option>
         </select>
 	<br/>
 	<br/>
@@ -126,7 +129,9 @@ var showAllGames = true;
 var showOnlyZeroPlays = false;
 var showOnlyPreorders = false;
 var showLT5Plays = false;
+var showVariableTime = false;
 var urlinput = '';
+var time = '';
 
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
@@ -140,31 +145,49 @@ function letsDoThis(){
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = true;
 		showLT5Plays = false;
+		showVariableTime = false;
 	}else if (dropdownSelected === "2"){
 		showAllGames = false;
 		showOnlyPreorders = true;
 		showOnlyZeroPlays = false;
 		showLT5Plays = false;
+		showVariableTime = false;
 	}else if(dropdownSelected ==="0"){
 		showAllGames = true;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
 		showLT5Plays = false;
-	}else{
+		showVariableTime = false;
+	}else if(dropdownSelected ==="3"){
 		showAllGames = false;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
 		showLT5Plays = true;
+		showVariableTime = false;
+	}else if(dropdownSelected==="4" || dropdownSelected ==="5" || dropdownSelected ==="6"){
+		showAllGames = false;
+		showOnlyPreorders = false;
+		showOnlyZeroPlays = false;
+		showLT5Plays = false;
+		showVariableTime = true;
+		if(dropdownSelected ==="4"){
+			time="30";
+		}else if(dropdownSelected==="5"){
+			time="60";
+		}else{
+			time="90";
+		}
+	
 	}
 	
+	
 	if(showOnlyPreorders == true){
-		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&preordered=1&stats=1"
-	}else if (showAllGames == true || showOnlyZeroPlays ==true){
-		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion&stats=1"
+		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&preordered=1&stats=1";
+	}else if (showAllGames == true || showOnlyZeroPlays ==true || showVariableTime ==true){
+		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion&stats=1";
 	}else if (showLT5Plays == true){
-		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&excludesubtype=boardgameexpansion&maxplays=4&own=1&stats=1"
+		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&excludesubtype=boardgameexpansion&maxplays=4&own=1&stats=1";
 	}
-	//console.log(urlinput);
 	document.getElementById("mainBox").innerHTML = "";
 	loadDoc(urlInput);		
 }
@@ -218,7 +241,13 @@ function myFunction(xml) {
 			arrayOfThing = [name, year, plays, image,minPlayers,maxPlayers,maxPlaytime];
 			arrayGames.push(arrayOfThing);
 		}
-	} else {
+	} else if (showVariableTime == true){
+		console.log(maxPlaytime + " + time + " + time);
+		if(parseInt(maxPlaytime)<=parseInt(time)){
+			arrayOfThing = [name, year, plays, image,minPlayers,maxPlayers,maxPlaytime];
+			arrayGames.push(arrayOfThing);
+		}
+	}else {
 		arrayOfThing = [name, year, plays, image,minPlayers,maxPlayers,maxPlaytime];
 		arrayGames.push(arrayOfThing);
 	}
