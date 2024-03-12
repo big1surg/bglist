@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+#game{
+border-bottom: 1px solid black;
+border-radius: 25px;
+}
+	
+#shortImage{
+	padding-left:50px;
+	padding-right:50px;
+}
+
+
+.jumbotron{
+	background-image: url("background.jpg");
+	background-size: cover;
+}
+
+#randomGame, #gameList, #totalGames, #needToPlaygameList{
+	text-align:center;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Content will go here -->
+<div class="container-fluid">
+
+<div class="jumbotron">
+  <h1 class="display-4 text-white">Board Games</h1>
+  <p class="lead text-white">Find Random Game to Play.</p>
+  <a class="btn btn-light" href="index.html">Home</a>
+  <a class="btn btn-light" href="randomgame.html">Random</a>
+  <a class="btn btn-light" href="https://boardgamegeek.com/collection/user/biggy_serg">BGG</a>
+</div>
+<div>
+	<!--<img src="randomGame.png" width="300"/>-->
+
+</div>	
+</div>
+<div class ="container">
+	
+<form>
+  <div>
+	  <label for="complexity">Choose a Complexity:</label>
+	<br/>
+	<select name="complexity" id="complexity">
+	  <option value="All">All</option>
+	  <option value="1">Light</option>
+	  <option value="2">Medium Light</option>
+	  <option value="3">Medium</option>
+	  <option value="4">Medium Heavy</option>
+          <option value="5">Heavy</option>
+	</select>
+	<br/>
+	<label for="gameTime">Choose a max game time (min):</label>
+	<br/>
+	<select name="gameTime" id="gameTime">
+	  <option value="Any">Any</option>
+	  <option value="30">30</option>
+	  <option value="60">60</option>
+	  <option value="90">90</option>
+	  <option value="120">120</option>
+       <option value="180">180</option>
+	</select>
+	<br/>
+	<label for="playerRange">Number of players:</label>
+	<input type="text" class="form-control" id="numPlayers" style="width:50%;">
+	<br/>
+	
+  </div>
+   
+  <button type="button" onclick="myFunction()" class="btn btn-primary">Lets go!</button>
+</form>
+
+</div>
+
+<script>
+
+
+//get settings
+var complexityAttr = "";
+var complexityAttrMin = "";
+var maxGT = "";
+var numPlayers = "";
+
+function myFunction(){
+	var dropdownSelectedComplexity = document.getElementById("complexity").value;
+	var dropdownSelectedMaxGameTime = document.getElementById("gameTime").value;
+	var numPlayersInput = document.getElementById("numPlayers").value;
+	
+	if(dropdownSelectedComplexity != "All"){
+		complexityAttr = dropdownSelectedComplexity;
+		complexityAttrMin =  parseInt(complexityAttr) - 1; 
+	}
+	
+	if(dropdownSelectedMaxGameTime != "Any"){
+		maxGT = dropdownSelectedMaxGameTime;
+	}
+	
+	if(isNaN(numPlayersInput) == false){
+		numPlayers = numPlayersInput;
+	}
+	
+	var baseUrl = "https://boardgamegeek.com/geeksearch.php?action=search&advsearch=1&objecttype=boardgame&q=&include%5Bdesignerid%5D=&geekitemname=&geekitemname=&include%5Bpublisherid%5D=&range%5Byearpublished%5D%5Bmin%5D=&range%5Byearpublished%5D%5Bmax%5D=&range%5Bminage%5D%5Bmax%5D=&floatrange%5Bavgrating%5D%5Bmin%5D=&floatrange%5Bavgrating%5D%5Bmax%5D=&range%5Bnumvoters%5D%5Bmin%5D=&floatrange%5Bavgweight%5D%5Bmin%5D="+complexityAttrMin+"&floatrange%5Bavgweight%5D%5Bmax%5D="+complexityAttr+"&range%5Bnumweights%5D%5Bmin%5D=&colfiltertype=owned&searchuser=biggy_serg&nosubtypes%5B%5D=boardgameexpansion&range%5Bminplayers%5D%5Bmax%5D="+numPlayers+"&range%5Bmaxplayers%5D%5Bmin%5D="+numPlayers+"&playerrangetype=normal&range%5Bleastplaytime%5D%5Bmin%5D=&range%5Bplaytime%5D%5Bmax%5D="+maxGT+"&B1=Submit"
+	window.location =baseUrl;
+
+}
+
+</script>
+</body>
+</html>
