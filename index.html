@@ -162,9 +162,11 @@ var arrayOfLightGames = [
 ['Splendor','2014','Set Collection','2-4','splendor.png'],
 ['Marvel Splendor','2020','Set Collection','2-4','marvelsplendor.png'],
 ['Pokemon Splendor','2023','Set Collection','2-4','pokemon.png'],
+['Splendor: Duel','2022','Set Collection','2','splendorduel.png'],
 ['Ten','2021','Push your Luck','1-5','ten.png'],
 ['Wavelength','2019','Mechanics','2-12','wavelength.png'],
-['Long Shot: The Dice Game','2022','Mechanics','1-8','longshot.png']
+['Long Shot: The Dice Game','2022','Mechanics','1-8','longshot.png'],
+['Zoo Vadis','2023','Negotiation','3-7','zoovadis.png']
 ];
 	//name, year, theme, players, image
 	var arrayOfGames = [
@@ -295,14 +297,25 @@ var arrayOfLightGames = [
 ['Calico','2020','Set Collection','1-4','calico.png'],
 ['Heaven and Ale','2017','Rodel','2-4','heavenandale.png'],
 ['Lorcana','2024','CCG','1-2','lorcana.png'],
-['AC: Brotherhood of Venice','2021','Campaign','1-4','acbrotherhoodofvenice.png']
-
+['AC: Brotherhood of Venice','2021','Campaign','1-4','acbrotherhoodofvenice.png'],
+['Ginkgopolis','2012','Majority','1-5','ginkgopolis.png']
 	];
+
+//games james owns cause i sold mine away so we didnt have dupes
+var sharedGames = [
+['Ark Nova','2021','Engine Builder','2-4','arknova.png'],
+['Hadrians Wall','2021','Combo','1-6','hadrianswall.png'],
+['DoW: The Long Night','2016','Horror','2-5','dowthelongestnight.png'],
+['Concordia','2013','Deck Builder','2-5','concordia.png'],
+['Astro Knights','2024','Deck Builder Coop','1-4','astroknights.png'],
+['Arkham Horror','2016','Deck Builder','1-4','ahlcg.png']
+];
 	var games = arrayOfGames.length;
 	var uweGamesCount = uweGames.length;
 	var garphillGamesCount = garphillGames.length;
 	var splotterGamesCount = splotterGames.length;
 	var lightGamesCount = arrayOfLightGames.length;
+	var sharedGamesCount = sharedGames.length;
 	var allGameCount = games+uweGamesCount+garphillGamesCount+splotterGamesCount+lightGamesCount;
 	var gamesPerRow = 6;
 	
@@ -311,6 +324,7 @@ var arrayOfLightGames = [
 	var garphillRow = Math.ceil(garphillGamesCount/gamesPerRow);
 	var splotterRow = Math.ceil(splotterGamesCount/gamesPerRow);
 	var lightRow = Math.ceil(lightGamesCount/gamesPerRow);
+	var sharedRow = Math.ceil(sharedGamesCount/gamesPerRow);
 	var count = 0;
 
 	//add number of games to screen
@@ -717,5 +731,84 @@ var arrayOfLightGames = [
 		document.getElementById('mainBox').appendChild(div);
 	}
 	
+	//reset count
+	count = 0;
+	gamesPerRow = 6;
 	
+	
+	//games shared with james
+	var div = document.createElement('div');
+	div.setAttribute('style', 'border-style:ridge');
+	div.innerHTML = `		
+		<div class ="row">
+		<div class="col"
+		<h2 style="text-align:center;">Shared Games</h2>
+		</div class="col">
+		</div>
+	
+	
+	`;
+	
+	document.getElementById('mainBox').appendChild(div);
+	
+	//reset count
+	count = 0;
+	gamesPerRow = 6;
+	for(y=0;y<sharedRow;y++){
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		if(sharedGamesCount>gamesPerRow){
+			console.log('x');
+			for(x=0;x<gamesPerRow;x++){
+			div.innerHTML += `
+			  <div class="col d-flex justify-content-center">
+				  <div class="flip-box">
+					 <div class="flip-box-inner">
+						 <div class="flip-box-front">
+							  <img src=${sharedGames[count][4]} style="width:150px;height:150px"/>
+						  </div><!--flip box front end-->
+						 <div class="flip-box-back">
+							  <h5>${sharedGames[count][0]}</h5>
+							 <p>${sharedGames[count][1]}<br/>
+							 ${sharedGames[count][2]}<br/>
+							 ${sharedGames[count][3]} Player(s)</p>
+						 </div><!--flip box back end-->
+					 </div><!--flip-box-inner end-->
+				</div><!--flip box end-->
+			</div><!--col end-->
+			`;
+			
+			count++;
+			}
+			
+			sharedGamesCount = sharedGamesCount-gamesPerRow;
+		}else{
+			gamesPerRow = sharedGamesCount;
+			console.log(count);
+			for(x=0;x<gamesPerRow;x++){
+			div.innerHTML += `
+			  <div class="col d-flex justify-content-center">
+				  <div class="flip-box">
+					 <div class="flip-box-inner">
+						 <div class="flip-box-front">
+							  <img src=${sharedGames[count][4]} style="width:150px;height:150px"/>
+						  </div><!--flip box front end-->
+						 <div class="flip-box-back">
+							  <h5>${sharedGames[count][0]}</h5>
+							 <p>${sharedGames[count][1]}<br/>
+							 ${sharedGames[count][2]}<br/>
+							 ${sharedGames[count][3]} Player(s)</p>
+						 </div><!--flip box back end-->
+					 </div><!--flip-box-inner end-->
+				</div><!--flip box end-->
+			</div><!--col end-->
+			`;
+			count++;
+			}
+			
+		}
+		document.getElementById('mainBox').appendChild(div);
+	}
 </script>
