@@ -109,6 +109,7 @@
             <option value="0">All Games</option>
             <option value="1">Unplayed Games</option>
             <option value="2">Preordered Games</option>
+			<option value="7">For Trade</option>
 			<option value="3">Games Played &lt; 5 Times</option>
 			<option value="4">Games &lt; 30 Min</option>
 			<option value="5">Games &lt; 60 Min</option>
@@ -130,6 +131,7 @@ var showOnlyZeroPlays = false;
 var showOnlyPreorders = false;
 var showLT5Plays = false;
 var showVariableTime = false;
+var showTrades = false;
 var urlinput = '';
 var time = '';
 
@@ -146,30 +148,42 @@ function letsDoThis(){
 		showOnlyZeroPlays = true;
 		showLT5Plays = false;
 		showVariableTime = false;
+		showTrades = false;
 	}else if (dropdownSelected === "2"){
 		showAllGames = false;
 		showOnlyPreorders = true;
 		showOnlyZeroPlays = false;
 		showLT5Plays = false;
 		showVariableTime = false;
+		showTrades = false;
+	}else if(dropdownSelected ==="7") {
+		showAllGames = false;
+		showOnlyPreorders = false;
+		showOnlyZeroPlays = false;
+		showLT5Plays = false;
+		showVariableTime = false;
+		showTrades = true;
 	}else if(dropdownSelected ==="0"){
 		showAllGames = true;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
 		showLT5Plays = false;
 		showVariableTime = false;
+		showTrades = false;
 	}else if(dropdownSelected ==="3"){
 		showAllGames = false;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
 		showLT5Plays = true;
 		showVariableTime = false;
+		showTrades = false;
 	}else if(dropdownSelected==="4" || dropdownSelected ==="5" || dropdownSelected ==="6"){
 		showAllGames = false;
 		showOnlyPreorders = false;
 		showOnlyZeroPlays = false;
 		showLT5Plays = false;
 		showVariableTime = true;
+		showTrades = false;
 		if(dropdownSelected ==="4"){
 			time="30";
 		}else if(dropdownSelected==="5"){
@@ -187,6 +201,8 @@ function letsDoThis(){
 		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&own=1&excludesubtype=boardgameexpansion&stats=1";
 	}else if (showLT5Plays == true){
 		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&excludesubtype=boardgameexpansion&maxplays=4&own=1&stats=1";
+	}else if (showTrades == true){
+		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&trade=1&stats=1";
 	}
 	document.getElementById("mainBox").innerHTML = "";
 	loadDoc(urlInput);		
