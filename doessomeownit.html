@@ -79,12 +79,12 @@
 
 <div class="jumbotron">
   <h1 class="display-4 text-white">Board Games</h1>
-  <p class="lead text-white">Let's see those plays!</p>
+  <p class="lead text-white">Do yah own it!?</p>
   <a class="btn btn-light" href="index.html">Home</a>
 </div>
 </div>
 <div id="buttonGroup" style="margin: 20px;">
-<p style="color: blue">Get a users logged plays by searching by User Name and the Games ID. Don't know the ID? Search for it!</p><hr/>
+	<p style="color:Blue;">Confirm if your buddy owns this game! Search by User Name and the Games ID. Don't know the ID? Search for it!</p><hr/>
 	<div class="form-group" >
 		<label style="width:95%;" >BGG Username<input class="form-control" list="bggPeople" name="myBggPeople" id="usernameInput" style="width:95%;" /></label>
 		<datalist id="bggPeople" style="width:95%;" >
@@ -144,7 +144,8 @@ function letsDoThis(){
 		document.getElementById("mainBox").innerHTML = "";
 		loadDoc(urlInput);	
 	}else if (userinputgame){
-		urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
+		urlInput = "https://boardgamegeek.com/xmlapi2/collection?username="+userinput+"&id="+userinputgame;
+		//urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
 		getID = false;
 		document.getElementById("mainBox").innerHTML = "";
 		loadDoc(urlInput);	
@@ -232,87 +233,49 @@ function pasteID (id){
 }
 
 function myFunction(xml) {
-	var arrayGames= [];
-	var name;
-	var date;
-	var length;
-	var incomplete;
-	var location;
-	var players;
-	var scores; 
-	var comments;
-	var arrayOfThing = new Array();
-	
-	//player info
-	var playerName;
-	var playerScore;
-	var playerNew;
-	var playerWin;
-	var playerString = "";
-	
-	var k;
-	var i;
+	var ownGame;
+	var prevOwnGame;
+	var gameNameLocated;
 	var xmlDoc = xml.responseXML;
-	var x = xmlDoc.getElementsByTagName("play");
+	var x = xmlDoc.getElementsByTagName("item");
 	var numPlays = x.length;
-	for(i=0; i<x.length; i++){
-		name = x[i].getElementsByTagName("item")[0].getAttribute("name");
-		try{
-			date = x[i].getAttribute("date");
-		}catch{
-			date = 'N/A';
-		}
-		length = x[i].getAttribute("length");
-		incomplete = x[i].getAttribute("incomplete");
-		location = x[i].getAttribute("location");
-		try{
-			comments = x[i].getElementsByTagName("comments")[0].textContent;
-		}catch{
-			comments = 'N/A';
-		}
-		players = x[i].getElementsByTagName("players");
-		for(k =0; k<20; k++){
-			if(players[0].getElementsByTagName("player")[k]){
-				playerName = players[0].getElementsByTagName("player")[k].getAttribute("name");
-				playerScore = players[0].getElementsByTagName("player")[k].getAttribute("score");
-				if(!playerScore){
-					playerScore = "NA";
-				}
-				playerNew = players[0].getElementsByTagName("player")[k].getAttribute("new");
-				if(playerNew == "0"){
-				 playerNew = "Yes";
-				}else{
-					playerNew = "No";
-				}
-				playerWin = players[0].getElementsByTagName("player")[k].getAttribute("win");
-				if(playerWin == "0"){
-				 playerWin = "No";
-				}else{
-					playerWin = "Yes";
-				}
-				console.log(playerWin);
-				if(k==0){
-					if(playerWin === "Yes"){
-						playerString =(k+1)+") <span style='background-color:#90EE90; padding-left:4px; padding-right: 4px; border-radius:10px;'>" + playerName + "</span> <br/><b>Score</b>: " + playerScore + " <br/><b>Win</b>: " +playerWin+"<br/>";
-					}else{
-						playerString =(k+1)+") " + playerName + "<br/><b>Score</b>: " + playerScore + " <br/><b>Win</b>: " +playerWin+"<br/>";
-					}
-				}else{
-					if(playerWin ==="Yes"){
-						playerString = playerString+"<br/>"+(k+1)+") <span style='background-color:#90EE90; padding-left:4px; padding-right: 4px; border-radius:10px;'>" + playerName + "</span> <br/><b>Score</b>: " + playerScore + " <br/><b>Win</b>: " +playerWin+"<br/>";
-					}else{
-						playerString = playerString+"<br/>"+(k+1)+") " + playerName + " <br/><b>Score</b>: " + playerScore + " <br/><b>Win</b>: " +playerWin+"<br/>";
-					}
-				}
-			}else{
-				k =20;
-			}
-		}
-		arrayOfThing = [name, date, length, incomplete,location,comments, playerString];
-		playerString = "";
-		arrayGames.push(arrayOfThing);
+	console.log(numPlays);
+	if(x.length>0){
+		gameNameLocated = x[0].getElementsByTagName("name")[0].textContent;
+		ownGame = x[0].getElementsByTagName("status")[0].getAttribute("own");
+		prevOwnGame = x[0].getElementsByTagName("status")[0].getAttribute("prevowned");
+		
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		////console.log('x');
+		div.innerHTML += `
+		  <div><b>${gameNameLocated}</b>
+		<p>Own: ${ownGame}</br>
+		Previously Owned: ${prevOwnGame}
+		 </p>
+		</div>
+		<hr/><!--col end-->
+		`;
+		
+	}else{
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		////console.log('x');
+		div.innerHTML += `
+		  <div>
+		<p>No history of this game on BGG for this user.
+		 </p>
+		</div>
+		<hr/><!--col end-->
+		`;
+
 	}
-	displayResults(numPlays, arrayGames);
+	
+	document.getElementById('mainBox').appendChild(div);
 }
 
 
