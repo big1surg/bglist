@@ -81,13 +81,15 @@
   <h1 class="display-4 text-white">Board Games</h1>
   <p class="lead text-white">Do yah own it!?</p>
   <a class="btn btn-light" href="index.html">Home</a>
+    <a class="btn btn-light" href="mygames.html">Users</a>
+  <a class="btn btn-light" href="bggGame.html">BGG Search</a>
+  <a class="btn btn-light" href="getplays.html">Plays</a>
 </div>
 </div>
 <div id="buttonGroup" style="margin: 20px;">
-	<p style="color:Blue;">Confirm if your buddy owns this game! Search by User Name and the Games ID. Don't know the ID? Search for it!</p><hr/>
-	<div class="form-group" >
-		<label style="width:95%;" >BGG Username<input class="form-control" list="bggPeople" name="myBggPeople" id="usernameInput" style="width:95%;" /></label>
-		<datalist id="bggPeople" style="width:95%;" >
+<div class="form-group" >
+		<label style="width:75%;" >BGG Username<input class="form-control" list="bggPeople" name="myBggPeople" id="usernameInput" style="width:100%;" /></label>
+		<datalist id="bggPeople" style="width:100%;" >
 		  <option value="biggy_serg">Sergio</option>
 		  <option value="sasurai087">James</option>
 		  <option value="dmirman">David Mirman</option>
@@ -104,7 +106,8 @@
 		<input type="checkbox" id="exactMatch">
 	</div>
 	<button type="submit" class="btn btn-primary" onclick="letsDoThis()">Submit</button>
-	<button class="btn btn-primary" onclick="clearInput()">Clear</button>
+	<button class="btn btn-primary" onclick="clearInput()">Clear All</button>
+	<button class="btn btn-warning" onclick="clearInputUser()">Clear User</button>
 </div>
 <div class="container" id='mainBox'>	
 </div> <!---container-->
@@ -324,6 +327,10 @@ function clearInput(){
 	document.getElementById("gameID").value = '';
 	document.getElementById("gameName").value = '';
 	document.getElementById("exactMatch").checked = false;
+}
+
+function clearInputUser(){
+	document.getElementById("usernameInput").value = '';
 }
 
 </script>

@@ -81,14 +81,23 @@
   <h1 class="display-4 text-white">Board Games</h1>
   <p class="lead text-white">Showcasing your Collection.</p>
   <a class="btn btn-light" href="index.html">Home</a>
-  <a class="btn btn-light" href="https://boardgamegeek.com/collection/user/biggy_serg">BGG</a>
-  <a class="btn btn-light" href="bggGame.html">Search</a>
+  <a class="btn btn-light" href="bggGame.html">BGG Search</a>
+  <a class="btn btn-light" href="getplays.html">Plays</a>
+  <a class="btn btn-light" href="doessomeownit.html">Own</a>
 </div>
 </div>
 <div id="buttonGroup" style="margin: 20px;">
 	<div class="form-group" >
-		<label>BGG Username</label>
-		<input type="text" class="form-control" id="usernameInput" style="width:95%;">
+  		<label style="width:95%;" >BGG Username<input class="form-control" list="bggPeople" name="myBggPeople" id="usernameInput" style="width:100%;" /></label>
+		<datalist id="bggPeople" style="width:100%;" >
+		  <option value="biggy_serg">Sergio</option>
+		  <option value="sasurai087">James</option>
+		  <option value="dmirman">David Mirman</option>
+		  <option value="lawster">Christina Law</option>
+		  <option value="rckhopr">Josh</option>
+		  <option value="ahlonzie">Katie</option>
+		  <option value="chaincranker">Andy</option>
+		</datalist><br/><hr/>
 	</div>
 	<!--<div class="form-check">
 		<input type="checkbox" class="form-check-input" id="Check1">
