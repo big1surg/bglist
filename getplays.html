@@ -91,6 +91,8 @@
 		<input type="text" class="form-control" id="gameID" style="width:95%;">
 		<label>Search for Game ID</label>
 		<input type="text" placeholder="Game Name" class="form-control" id="gameName" style="width:95%;">
+		<label>Exact Match</label>
+		<input type="checkbox" id="exactMatch">
 	</div>
 	<button type="submit" class="btn btn-primary" onclick="letsDoThis()">Submit</button>
 	<button class="btn btn-primary" onclick="clearInput()">Clear</button>
@@ -124,7 +126,11 @@ function letsDoThis(){
 		`;
 		document.getElementById('mainBox').appendChild(divName);
 	}else if(userinputgamename){
-		urlInput = "https://boardgamegeek.com/xmlapi2/search?query="+userinputgamename+"&type=boardgame";
+		if(document.getElementById("exactMatch").checked){
+			urlInput = "https://boardgamegeek.com/xmlapi2/search?query="+userinputgamename+"&type=boardgame&exact=1";
+		}else{		
+			urlInput = "https://boardgamegeek.com/xmlapi2/search?query="+userinputgamename+"&type=boardgame";
+		}
 		getID = true;
 		document.getElementById("mainBox").innerHTML = "";
 		loadDoc(urlInput);	
@@ -184,8 +190,11 @@ function myFunctionGetID(xml){
 	for(i=0; i<x.length; i++){
 		gameNameReturn = x[i].getElementsByTagName("name")[0].getAttribute("value");
 		gameIDReturn = x[i].getAttribute("id");
-		gamepublishReturn = x[i].getElementsByTagName("yearpublished")[0].getAttribute("value");
-		
+		try{
+			gamepublishReturn = x[i].getElementsByTagName("yearpublished")[0].getAttribute("value");
+		}catch{
+			gamepublishReturn = 'N/A'
+		}
 		var div = document.createElement('div');
 		div.setAttribute('class', 'row');
 		div.innerHTML = ``;
@@ -204,6 +213,8 @@ function myFunctionGetID(xml){
 	}
 	
 	document.getElementById("gameName").value = '';
+	document.getElementById("exactMatch").checked = false;
+	
 		
 }
 
@@ -340,6 +351,7 @@ function clearInput(){
 	document.getElementById("usernameInput").value = '';
 	document.getElementById("gameID").value = '';
 	document.getElementById("gameName").value = '';
+	document.getElementById("exactMatch").checked = false;
 }
 
 </script>
