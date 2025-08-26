@@ -89,23 +89,11 @@
 		<input type="text" class="form-control" id="usernameInput" style="width:95%;">
 		<label>Game ID</label>
 		<input type="text" class="form-control" id="gameID" style="width:95%;">
+		<label>Search for Game ID</label>
+		<input type="text" placeholder="Game Name" class="form-control" id="gameName" style="width:95%;">
 	</div>
-	<!--<div class="form-check">
-		<input type="checkbox" class="form-check-input" id="Check1">
-		<label class="form-check-label" for="Check1">Only Games with 0 plays</label>
-	  </div>
-	  -->
-	<!--<div class="dropdown">
-	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-		Filters
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-		<li><a class="dropdown-item" href="#" value="0">All Games</a></li>
-		<li><a class="dropdown-item" href="#" value="1">Unplayed Games</a></li>
-		<li><a class="dropdown-item" href="#" value="2">Preordered Games</a></li>
-	  </ul>
-	</div>-->
 	<button type="submit" class="btn btn-primary" onclick="letsDoThis()">Submit</button>
+	<button class="btn btn-primary" onclick="clearInput()">Clear</button>
 </div>
 <div class="container" id='mainBox'>	
 </div> <!---container-->
@@ -114,21 +102,38 @@
 	  
 <script>
 //different array of games
-var showAllGames = true;
-var showOnlyZeroPlays = false;
-var showOnlyPreorders = false;
-var showLT5Plays = false;
-var showVariableTime = false;
+var getID = true;
 var urlinput = '';
 var time = '';
+var gameNameGlobal = '';
 
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
 	var userinputgame = document.getElementById("gameID").value;
-
-	urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
-	document.getElementById("mainBox").innerHTML = "";
-	loadDoc(urlInput);		
+	var userinputgamename = document.getElementById("gameName").value;
+	gameNameGlobal = userinputgamename;
+	
+	if(!userinput && !userinputgame && !userinputgamename){
+		document.getElementById("mainBox").innerHTML = "";
+		var divName = document.createElement('div');
+		divName.setAttribute('class', 'row');
+		divName.innerHTML += `
+		  <div>
+		<p>No input.
+		</div>
+		`;
+		document.getElementById('mainBox').appendChild(divName);
+	}else if(userinputgamename){
+		urlInput = "https://boardgamegeek.com/xmlapi2/search?query="+userinputgamename+"&type=boardgame";
+		getID = true;
+		document.getElementById("mainBox").innerHTML = "";
+		loadDoc(urlInput);	
+	}else if (userinputgame){
+		urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
+		getID = false;
+		document.getElementById("mainBox").innerHTML = "";
+		loadDoc(urlInput);	
+	}	
 }
 
 function loadDoc(urlString) {
@@ -136,16 +141,77 @@ function loadDoc(urlString) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      myFunction(this);
+		if(getID == false){
+			myFunction(this);
+		}else{
+			myFunctionGetID(this);
+		}
     }
   };
   xhttp.open("GET", urlString, true);
   xhttp.send();
 }
 
-function myFunction(xml) {
-//console.log("getdata");
+function myFunctionGetID(xml){
+	var gameNameReturn;
+	var gameIDReturn;
+	var gamepublishReturn;
+	var xmlDoc = xml.responseXML;
+	var x = xmlDoc.getElementsByTagName("item");
+	//var numItemsReturned = x.length;
+	//console.log("items"+numItemsReturned);
+	var divName = document.createElement('div');
+	divName.setAttribute('class', 'row');
+	divName.innerHTML = `Results for: ${gameNameGlobal}  <hr/>`;
+	document.getElementById('mainBox').appendChild(divName);
+	
+	if(x.length == 0){
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		////console.log('x');
+		div.innerHTML += `
+		  <div>
+		<p>Nothing found. Please confirm you are spelling the game correctly.
+		</div>
+		<hr/><!--col end-->
+		`;
 
+		document.getElementById('mainBox').appendChild(div);
+	}
+	
+	for(i=0; i<x.length; i++){
+		gameNameReturn = x[i].getElementsByTagName("name")[0].getAttribute("value");
+		gameIDReturn = x[i].getAttribute("id");
+		gamepublishReturn = x[i].getElementsByTagName("yearpublished")[0].getAttribute("value");
+		
+		var div = document.createElement('div');
+		div.setAttribute('class', 'row');
+		div.innerHTML = ``;
+		
+		////console.log('x');
+		div.innerHTML += `
+		  <div>
+		<p><b>ID:</b> <a href="#" onclick="pasteID(${gameIDReturn})">${gameIDReturn}</a> <br/> 
+		<b>Name:</b> ${gameNameReturn}  <br/>
+		<b>Year:</b> ${gamepublishReturn}
+		</div>
+		<hr/><!--col end-->
+		`;
+
+		document.getElementById('mainBox').appendChild(div);
+	}
+	
+	document.getElementById("gameName").value = '';
+		
+}
+
+function pasteID (id){
+	document.getElementById("gameID").value = id;
+}
+
+function myFunction(xml) {
 	var arrayGames= [];
 	var name;
 	var date;
@@ -165,98 +231,75 @@ function myFunction(xml) {
 	var playerString = "";
 	
 	var k;
-  var i;
-  var xmlDoc = xml.responseXML;
-  ////console.log(xmlDoc);
-  //var table="<tr><th>Artist</th><th>Title</th></tr>";
-  var x = xmlDoc.getElementsByTagName("play");
-  var numPlays = x.length;
-  for(i=0; i<x.length; i++){
-	//console.log(x[i]);
-	////console.log("name");
-	////console.log(x[i].getElementsByTagName("item")[0].getAttribute("name"));
-	name = x[i].getElementsByTagName("item")[0].getAttribute("name");
-	////console.log("name"+name+" "+name.length);
-	try{
-	////console.log("date");
-		date = x[i].getAttribute("date");
-		////console.log(date);
-	}catch{
-		date = 'N/A';
-		////console.log(date);
+	var i;
+	var xmlDoc = xml.responseXML;
+	var x = xmlDoc.getElementsByTagName("play");
+	var numPlays = x.length;
+	for(i=0; i<x.length; i++){
+		name = x[i].getElementsByTagName("item")[0].getAttribute("name");
+		try{
+			date = x[i].getAttribute("date");
+		}catch{
+			date = 'N/A';
+		}
+		length = x[i].getAttribute("length");
+		incomplete = x[i].getAttribute("incomplete");
+		location = x[i].getAttribute("location");
+		try{
+			comments = x[i].getElementsByTagName("comments")[0].textContent;
+		}catch{
+			comments = 'N/A';
+		}
+		players = x[i].getElementsByTagName("players");
+		for(k =0; k<20; k++){
+			if(players[0].getElementsByTagName("player")[k]){
+				playerName = players[0].getElementsByTagName("player")[k].getAttribute("name");
+				playerScore = players[0].getElementsByTagName("player")[k].getAttribute("score");
+				if(!playerScore){
+					playerScore = "NA";
+				}
+				playerNew = players[0].getElementsByTagName("player")[k].getAttribute("new");
+				if(playerNew == "0"){
+				 playerNew = "Yes";
+				}else{
+					playerNew = "No";
+				}
+				playerWin = players[0].getElementsByTagName("player")[k].getAttribute("win");
+				if(playerWin == "0"){
+				 playerWin = "No";
+				}else{
+					playerWin = "Yes";
+				}
+				console.log(playerWin);
+				if(k==0){
+					if(playerWin === "Yes"){
+						playerString =(k+1)+") <span style='background-color:#90EE90; padding-left:4px; padding-right: 4px; border-radius:10px;'>" + playerName + "</span> <br/><b>Score</b>: " + playerScore + " <br/><b>New</b>: " + playerNew +  " <br/><b>Win</b>: " +playerWin+"<br/>";
+					}else{
+						playerString =(k+1)+") " + playerName + "<br/><b>Score</b>: " + playerScore + " <br/><b>New</b>: " + playerNew +  " <br/><b>Win</b>: " +playerWin+"<br/>";
+					}
+				}else{
+					if(playerWin ==="Yes"){
+						playerString = playerString+"<br/>"+(k+1)+") <span style='background-color:#90EE90; padding-left:4px; padding-right: 4px; border-radius:10px;'>" + playerName + "</span> <br/><b>Score</b>: " + playerScore + " <br/><b>New</b>: " + playerNew +  " <br/><b>Win</b>: " +playerWin+"<br/>";
+					}else{
+						playerString = playerString+"<br/>"+(k+1)+") " + playerName + " <br/><b>Score</b>: " + playerScore + " <br/><b>New</b>: " + playerNew +  " <br/><b>Win</b>: " +playerWin+"<br/>";
+					}
+				}
+			}else{
+				k =20;
+			}
+		}
+		arrayOfThing = [name, date, length, incomplete,location,comments, playerString];
+		playerString = "";
+		arrayGames.push(arrayOfThing);
 	}
-	length = x[i].getAttribute("length");
-	////console.log(length);
-	incomplete = x[i].getAttribute("incomplete");
-	////console.log(incomplete);
-	location = x[i].getAttribute("location");
-	////console.log(location);
-	comments = x[i].getElementsByTagName("comments")[0].textContent;
-	////console.log("comments");
-	////console.log(comments);
-	//player info
-	players = x[i].getElementsByTagName("players");
-	//console.log("players");
-	////console.log(x[i].getElementsByTagName("players")[0].childNode("player")[0].length);
-	////console.log(players.length);
-	//if you change the array value itll get the next player
-	for(k =0; k<20; k++){
-	////console.log(players[k]);
-		if(players[0].getElementsByTagName("player")[k]){
-		playerName = players[0].getElementsByTagName("player")[k].getAttribute("name");
-		////console.log(playerName);
-		playerScore = players[0].getElementsByTagName("player")[k].getAttribute("score");
-		if(!playerScore){
-			playerScore = "NA";
-		}
-		playerNew = players[0].getElementsByTagName("player")[k].getAttribute("new");
-		if(playerNew == "0"){
-		 playerNew = "Yes";
-		}else{
-			playerNew = "No";
-		}
-		playerWin = players[0].getElementsByTagName("player")[k].getAttribute("win");
-		if(playerWin == "0"){
-		 playerWin = "No";
-		}else{
-			playerWin = "Yes";
-		}
-		if(k==0){
-		playerString = (k+1)+") <b>Name</b>: " + playerName + " <b>Score</b>: " + playerScore + " <b>New</b>: " + playerNew +  " <b>Win</b>: " +playerWin;
-		}else{
-		playerString = playerString+"<br/>"+(k+1)+") <b>Name</b>: " + playerName + " <b>Score</b>: " + playerScore + " <b>New</b>: " + playerNew +  " <b>Win</b>: " +playerWin;
-		}
-		}else{
-			k =20;
-		}
-		//console.log(playerString);
-	}
-	//maxPlayers = x[i].getElementsByTagName("stats")[0].getAttribute("maxplayers");
-	//maxPlaytime = x[i].getElementsByTagName("stats")[0].getAttribute("maxplaytime");
-
-
-	arrayOfThing = [name, date, length, incomplete,location,comments, playerString];
-	playerString = "";
-	arrayGames.push(arrayOfThing);
-	////console.log(arrayOfThing);
-	//arrayGames.push(arrayOfThing);
-  }
-  
-  //document.getElementById("demo").innerHTML = x.length;
-  ////console.log("array:"+arrayOfGames[0]);
-  displayResults(numPlays, arrayGames);
+	displayResults(numPlays, arrayGames);
 }
 
 
 function displayResults(numPlays, arrayOfGames){
-	//var games = arrayOfGames.length;	
-	//var gamesPerRow = 6;
-	//var rowsOfGames = Math.ceil(games/gamesPerRow);
-	//var count = 0;
 	var status;
 	var newStatus;
 	var winStatus;
-	////console.log(arrayOfGamess.length);
 	var divName = document.createElement('div');
 	divName.setAttribute('class', 'row');
 	divName.innerHTML = `<h1> ${arrayOfGames[0][0]} </h1> Number of Plays: ${numPlays}<hr/>`;
@@ -292,4 +335,11 @@ function displayResults(numPlays, arrayOfGames){
 	}
 	
 }
+
+function clearInput(){
+	document.getElementById("usernameInput").value = '';
+	document.getElementById("gameID").value = '';
+	document.getElementById("gameName").value = '';
+}
+
 </script>
