@@ -92,6 +92,8 @@
 		<datalist id="bggPeople" style="width:100%;" >
 		  <option value="biggy_serg">Sergio</option>
 		  <option value="sasurai087">James</option>
+		  <option value="daftprince">Princeton</option>
+		  <option value="trio">Serg, James, Princeton</option>
 		  <option value="dmirman">David Mirman</option>
 		  <option value="lawster">Christina Law</option>
 		  <option value="rckhopr">Josh</option>
@@ -120,6 +122,8 @@ var getID = true;
 var urlinput = '';
 var time = '';
 var gameNameGlobal = '';
+var trio = false;
+var trioArray = ['Sergio','James','Princeton'];
 
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
@@ -145,23 +149,38 @@ function letsDoThis(){
 		}
 		getID = true;
 		document.getElementById("mainBox").innerHTML = "";
-		loadDoc(urlInput);	
+		loadDoc(urlInput, "N/A");	
 	}else if (userinputgame){
-		urlInput = "https://boardgamegeek.com/xmlapi2/collection?username="+userinput+"&id="+userinputgame;
-		//urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
-		getID = false;
-		document.getElementById("mainBox").innerHTML = "";
-		loadDoc(urlInput);	
+		if(userinput === 'trio'){
+			trio = true;
+			urlInput = "https://boardgamegeek.com/xmlapi2/collection?username=biggy_serg&id="+userinputgame;
+			getID = false;
+			document.getElementById("mainBox").innerHTML = "";
+			loadDoc(urlInput, "Sergio");	
+			urlInput = "https://boardgamegeek.com/xmlapi2/collection?username=sasurai087&id="+userinputgame;
+			loadDoc(urlInput, "James");	
+			urlInput = "https://boardgamegeek.com/xmlapi2/collection?username=daftprince&id="+userinputgame;
+			loadDoc(urlInput, "Princeton");
+		}
+		else{
+			trio=false;
+			urlInput = "https://boardgamegeek.com/xmlapi2/collection?username="+userinput+"&id="+userinputgame;
+			//urlInput="https://boardgamegeek.com/xmlapi2/plays?%20username="+userinput+"&id="+userinputgame;
+			getID = false;
+			document.getElementById("mainBox").innerHTML = "";
+			loadDoc(urlInput, userinput);	
+		}
+
 	}	
 }
 
-function loadDoc(urlString) {
+function loadDoc(urlString, usersName) {
 	////console.log("loadDoc");
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 		if(getID == false){
-			myFunction(this);
+			myFunction(this, usersName);
 		}else{
 			myFunctionGetID(this);
 		}
@@ -211,7 +230,6 @@ function myFunctionGetID(xml){
 		var div = document.createElement('div');
 		div.setAttribute('class', 'row');
 		div.innerHTML = ``;
-		
 		////console.log('x');
 		div.innerHTML += `
 		  <div>
@@ -235,14 +253,14 @@ function pasteID (id){
 	document.getElementById("gameID").value = id;
 }
 
-function myFunction(xml) {
+function myFunction(xml, usersName) {
 	var ownGame;
 	var prevOwnGame;
 	var gameNameLocated;
 	var xmlDoc = xml.responseXML;
 	var x = xmlDoc.getElementsByTagName("item");
 	var numPlays = x.length;
-	console.log(numPlays);
+	//console.log(x);
 	if(x.length>0){
 		gameNameLocated = x[0].getElementsByTagName("name")[0].textContent;
 		ownGame = x[0].getElementsByTagName("status")[0].getAttribute("own");
@@ -252,6 +270,10 @@ function myFunction(xml) {
 		div.setAttribute('class', 'row');
 		div.innerHTML = ``;
 		
+		if(trio==true)
+		{
+			div.innerHTML += `<h3>${usersName}</h3>`;
+		}
 		////console.log('x');
 		div.innerHTML += `
 		  <div><b>${gameNameLocated}</b>
@@ -266,7 +288,10 @@ function myFunction(xml) {
 		var div = document.createElement('div');
 		div.setAttribute('class', 'row');
 		div.innerHTML = ``;
-		
+		if(trio==true)
+		{
+			div.innerHTML += `<h3>${usersName}</h3>`;
+		}
 		////console.log('x');
 		div.innerHTML += `
 		  <div>
