@@ -118,6 +118,7 @@
 	  
 <script>
 //different array of games
+var accessToken = 'a655a94f-3190-4881-adee-2acf39890ceb';
 var getID = true;
 var urlinput = '';
 var time = '';
@@ -177,6 +178,8 @@ function letsDoThis(){
 function loadDoc(urlString, usersName) {
 	////console.log("loadDoc");
   var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", urlString, true);
+  xhttp.setRequestHeader("Authorization", " Bearer "+accessToken);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 		if(getID == false){
@@ -186,7 +189,6 @@ function loadDoc(urlString, usersName) {
 		}
     }
   };
-  xhttp.open("GET", urlString, true);
   xhttp.send();
 }
 

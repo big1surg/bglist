@@ -120,6 +120,7 @@
             <option value="1">Unplayed Games</option>
             <option value="2">Preordered Games</option>
 			<option value="7">For Trade</option>
+			<option value="8">Wishlist</option>
 			<option value="3">Games Played &lt; 5 Times</option>
 			<option value="4">Games &lt; 30 Min</option>
 			<option value="5">Games &lt; 60 Min</option>
@@ -136,18 +137,19 @@
 	  
 <script>
 //different array of games
+var accessToken = 'a655a94f-3190-4881-adee-2acf39890ceb';
 var showAllGames = true;
 var showOnlyZeroPlays = false;
 var showOnlyPreorders = false;
 var showLT5Plays = false;
 var showVariableTime = false;
 var showTrades = false;
+var showWishlist = false;
 var urlinput = '';
 var time = '';
 
 function letsDoThis(){
 	var userinput = document.getElementById("usernameInput").value;
-	
 	//document.getElementById("buttonGroup").style.visibility="hidden";
 	//showOnlyZeroPlays = document.getElementById("Check1").checked;
 	//console.log(showOnlyZeroPlays);
@@ -159,6 +161,7 @@ function letsDoThis(){
 		showLT5Plays = false;
 		showVariableTime = false;
 		showTrades = false;
+		showWishlist = false;
 	}else if (dropdownSelected === "2"){
 		showAllGames = false;
 		showOnlyPreorders = true;
@@ -166,6 +169,7 @@ function letsDoThis(){
 		showLT5Plays = false;
 		showVariableTime = false;
 		showTrades = false;
+		showWishlist = false;
 	}else if(dropdownSelected ==="7") {
 		showAllGames = false;
 		showOnlyPreorders = false;
@@ -173,6 +177,15 @@ function letsDoThis(){
 		showLT5Plays = false;
 		showVariableTime = false;
 		showTrades = true;
+		showWishlist = false;
+	}else if(dropdownSelected ==="8") {
+		showAllGames = false;
+		showOnlyPreorders = false;
+		showOnlyZeroPlays = false;
+		showLT5Plays = false;
+		showVariableTime = false;
+		showTrades = false;
+		showWishlist = true;
 	}else if(dropdownSelected ==="0"){
 		showAllGames = true;
 		showOnlyPreorders = false;
@@ -180,6 +193,7 @@ function letsDoThis(){
 		showLT5Plays = false;
 		showVariableTime = false;
 		showTrades = false;
+		showWishlist = false;
 	}else if(dropdownSelected ==="3"){
 		showAllGames = false;
 		showOnlyPreorders = false;
@@ -187,6 +201,7 @@ function letsDoThis(){
 		showLT5Plays = true;
 		showVariableTime = false;
 		showTrades = false;
+		showWishlist = false;
 	}else if(dropdownSelected==="4" || dropdownSelected ==="5" || dropdownSelected ==="6"){
 		showAllGames = false;
 		showOnlyPreorders = false;
@@ -194,6 +209,7 @@ function letsDoThis(){
 		showLT5Plays = false;
 		showVariableTime = true;
 		showTrades = false;
+		showWishlist = false;
 		if(dropdownSelected ==="4"){
 			time="30";
 		}else if(dropdownSelected==="5"){
@@ -213,6 +229,8 @@ function letsDoThis(){
 		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&excludesubtype=boardgameexpansion&maxplays=4&own=1&stats=1";
 	}else if (showTrades == true){
 		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&trade=1&stats=1";
+	}else if (showWishlist == true){
+		urlInput="https://boardgamegeek.com/xmlapi2/collection?%20username="+userinput+"&wishlist=1&stats=1";
 	}
 	document.getElementById("mainBox").innerHTML = "";
 	loadDoc(urlInput);		
@@ -221,12 +239,13 @@ function letsDoThis(){
 function loadDoc(urlString) {
 	//console.log("loadDoc");
   var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", urlString, true);
+  xhttp.setRequestHeader("Authorization", " Bearer "+accessToken);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       myFunction(this);
     }
   };
-  xhttp.open("GET", urlString, true);
   xhttp.send();
 }
 
