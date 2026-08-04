@@ -142,7 +142,7 @@ var feldGames = [
 ['Luna','2010','Area Influence','1-4','luna.png'],
 ['La Isla','2014','Action Queue','2-4','laisla.png'],
 ['AquaSphere','2014','Area Influence','2-4','aquasphere.png'],
-['Carpe Diem','2018','Contracts','2-4','trajan.png'],
+['Carpe Diem','2018','Contracts','2-4','carpediem.png'],
 ['Bonfire','2020','Contracts','1-4','bonfire.png'],
 ['Marrakesh','2022','Cube Tower','2-4','marrakesh.png']
 ];
@@ -152,6 +152,7 @@ var kniziaGames = [
 ['Cosmolancer','1994','Abstract','2-4','cosmolancer.png'],
 ['My Island','2023','Tile Laying','2-4','myisland.png'],
 ['The Quest for El Dorado','2017','Race','2-4','eldorado.jpg'],
+['Amun-Re','2023','Auction','2-5','amunre.png'],
 ['Lost Cities','1999','Hand Management','2','lostcities.png'],
 ['Battle Line','2000','War','2','battleline.png'],
 ['L.L.A.M.A. Card Game','2019','Abstract, Card Game','2-6','llama.jpg'],
@@ -218,6 +219,7 @@ var arrayOfLightGames = [
 ['Love Letter','2012','Hidden Role, Deduction','2-6','loveletter.png'],
 ['Monikers','2015','Party','4-16','monikers.png'],
 ['Saboteur','2004','Bluffing','3-10','saboteur.png'],
+['Perspective','2023','Deduction','2-6','perspective.png'],
 ['Scout','2019','Hand Management','2-5','scout.png'],
 ['Moving Wild','2024','Hand Management','1-6','movingwild.png'],
 ['Insider','2016','Party, Deduction','4-8','insider.png'],
@@ -254,6 +256,7 @@ var arrayOfLightGames = [
 ['Confident?','2018','Party','3-99','confident.png'],
 ['Scattergories','1988','Party','2-6','scattergories.png'],
 ['Shamans','2021','Card Game','3-5','shamans.png'],
+['Pokemon Labyrinth','1986','Coop','2-4','pokemonlab.png'],
 ['Pictionary','1985','Party','3-16','pictionary.png']
 ];
 	//name, year, theme, players, image
@@ -272,7 +275,7 @@ var arrayOfLightGames = [
 ['Ethnos','2017','Area Majority','2-6','ethnos.png'],
 ['Imperial Steam','2021','Action Points, Contracts','2-4','imperialsteam.png'],
 ['Iki','2015','Rondel','2-4','iki.png'],
-['Yokohama Duel','2018','2','yokohamaduel.png'],
+['Yokohama Duel','2018','Worker Placement','2','yokohamaduel.png'],
 ['Lacrimosa ','2022','Deck Builder','1-4','lacrimosa.png'],
 ['Vampire: The Masquerade','2020','Hand Management','3-6','vampirethemasquerade.png'],
 ['Obsession','2018','Tableau Builder','1-6','obsession.png'],
@@ -345,6 +348,7 @@ var arrayOfLightGames = [
 ['Snowdonia','2026','Trains','1-5','snowdonia.png'],
 ['GWT: New Zealand','2023','Management','1-4','gwtnewzealand.png'],
 
+['Townsfolk Tussle','2022','Coop','1-5','townsfolktussle.png'],
 ['Endless Winter','2022','Area Majority','1-4','endlesswinter.png'],
 ['Cloudspire','2019','MOBA','1-4','cloudspire.png'],
 ['ISS Vanguard','2022','Coop, Scenarios','1-4','issvanguard.png'],
@@ -376,10 +380,12 @@ var arrayOfLightGames = [
 ['Carson City','2009','City Building','2-5','carsoncity.png'],
 ['Ultimate Railroads','2021','Trains','1-4','ultimaterailroads.png'],
 ['Compile: Main 1','2024','Card Game','2','compile.png'],
+['Small City','2023','Rondel','1-4','smallcity.png'],
 ['Expeditions','2023','Grid Movement','1-5','expeditions.png'],
 ['Exodus Fleet','2017','Economic','2-5','exodusfleet.png'],
 ['Newton','2018','Action Retrieval','1-4','newton.png'],
 ['Faiyum','2020','Action Retrieval','1-5','faiyum.png'],
+['Bruxelles 1893','2013','Auction','2-5','bruxelles1893.png'],
 ['Comic Hunters','2020','Set Collection','1-4','comichunters.png'],
 ['Manhattan Project 2','2018','Area Majority','2-5','manhattanproject2.png'],
 ['Vindication','2023','Area Majority','2-5','vindication.png'],
@@ -388,14 +394,17 @@ var arrayOfLightGames = [
 ['Crusaders: Thy Will be Done','2018','Action Points','2-4','crusaders.png'],
 ['Galactic Cruise','2025','Worker Placement','1-4','galacticcruise.png'],
 ['Lift Off','2018','Set Collection','2-4','liftoff.png'],
+['Vinhos','2016','Area Influence','1-4','vinhos.png'],
 ['Gentes: Deluxified','2018','Set Collect','1-4','gentes.png'],
 ['Francis Drake','2013','Push Your Luck','3-5','francisdrake.png'],
 ['Adas Dream','2025','Rondel','1-4','adasdream.png'],
 ['Nippon','2026','Economic','1-4','nippon.png'],
+['Age of Steam','2002','Trains','1-6','ageofsteam.png'],
 
+['Railsways of the World','2005','Trains','2-6','railwaysoftheworld.png'],
+['Railsways of Nippon','2018','Trains','2-4','railwaysofnippon.png'],
 ['Clank! Darkest Magic','Deck Building','Deck Builder, Legacy','2-6','clanklegacy2.png'],
 ['Fleet: The Dice Game','2018','Roll and Write, Drafting','1-4','fleet.png'],
-['Pax Pamire 2e','2019','Area Control','1-5','paxpamir2e.png'],
 ['Twilight Imperium','2017','Area Control, 4x','3-8','twilightimperium.jpg'],
 ['Viticulture','2015','Worker Placement','1-6','viticulture.jpg'],
 ['Hyperborea','2014','Area Majority','2-6','hyperborea.png'],
@@ -432,7 +441,7 @@ var sharedGames = [
 	var suchyGamesCount = suchyGames.length;
 	var lightGamesCount = arrayOfLightGames.length;
 	var sharedGamesCount = sharedGames.length;
-	var allGameCount = games+uweGamesCount+garphillGamesCount+suchyGamesCount+lightGamesCount;
+	var allGameCount = games+uweGamesCount+garphillGamesCount+suchyGamesCount+lightGamesCount+feldGamesCount+kniziaGamesCount;
 	var gamesPerRow = 6;
 	
 	var rowsOfGames = Math.ceil(games/gamesPerRow);
@@ -446,7 +455,7 @@ var sharedGames = [
 	var count = 0;
 
 	//add number of games to screen
-	var pCount = document.getElementById('gameCount').innerHTML = allGameCount+" total games";
+	var pCount = document.getElementById('gameCount').innerHTML = " &nbsp"+allGameCount+" total games";
 	
 	//uwe games
 	var div = document.createElement('div');
